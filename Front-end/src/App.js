@@ -24,13 +24,13 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
+          <Route path="/signupOtp" component={SignUpwithPhone} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/signup/otp" component={Otp} />
           <Route path="/forgotpasswordemail" component={EmailVerify} />
           <Route path="/ForgotPasswordotp" component={ForgotPasswordotp} />
           <Route path="/ResetPassword" component={ResetPassword} />
-          <Route path="/signupOtp" component={SignUpwithPhone} />
 
           <Route
             path="/home/:CourseName"
@@ -75,8 +75,8 @@ class App extends Component {
           {/* chat room for teacher and student */}
 
           <Route path="/chat" component={Chat} />
-
-          <Redirect to="/home/all" />
+          <Redirect to="/signupOtp" />
+          {/* <Redirect to="/home/all" /> */}
         </Switch>
       </BrowserRouter>
     );

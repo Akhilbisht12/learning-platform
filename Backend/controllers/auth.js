@@ -14,12 +14,12 @@ const api_key = require('../config/config');
 // }))
 
 let transporter = nodemailer.createTransport({
-    host: "smtp.hostinger.com",
+    host: "",
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: 'akhil@upgrate.in', // generated ethereal user
-      pass: 'Akhil8979@#', // generated ethereal password
+      user: '', // generated ethereal user
+      pass: '', // generated ethereal password
     },
   });
 

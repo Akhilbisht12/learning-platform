@@ -32,10 +32,10 @@ class Signup extends Component {
         touched: false,
       },
       email: {
-        placeholder: "Phone Number",
+        placeholder: "Email",
         value: "",
         valid: false,
-        type: "number",
+        type: "email",
         error: " ",
         msg: "",
 
