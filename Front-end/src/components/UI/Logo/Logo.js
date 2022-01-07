@@ -1,15 +1,7 @@
-import React from 'react';
-import Logo from '../../../assets/Images/logo.svg';
-import './Logo.css';
+import React from "react";
+import Logo from "../../../assets/Images/bsp_logo-black.png";
+import "./Logo.css";
 
-const logo =()=> (
+const logo = () => <img className="logo-shelp" src={Logo} alt="logo" />;
 
-    
-        <img className="logo-shelp" src={Logo} alt="logo"/>
-
-)
-
-
-export default logo ;
-
-
+export default logo;
