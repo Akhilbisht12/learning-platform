@@ -11,7 +11,7 @@ class AuthServices {
     // }
 
     register(data) { 
-        return axios.post('/signup',data)
+        return axios.post('/signup_phone',data)
      }
 
     otp(data){  
@@ -25,7 +25,7 @@ class AuthServices {
 
 
     login(data) { 
-        return axios.post('/login',data)
+        return axios.post('/login_phone',data)
     }
 
     VerifyEmail(data){ 

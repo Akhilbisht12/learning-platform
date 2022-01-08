@@ -20,70 +20,189 @@ let transporter = nodemailer.createTransport({
   secure: true, // true for 465, false for other ports
   auth: {
     user: "akhil@upgrate.in", // generated ethereal user
-    pass: "Akhil1234@#", // generated ethereal password
+    pass: "Akhil897987@#", // generated ethereal password
   },
 });
 
 exports.signupPhone = async (req, res) => {
-  const phone = req.body.phone;
-  const email = req.body.email;
-  // const confirmPassword=req.body.confirmPassword;
-  const name = req.body.name;
+  try {
+    const phone = req.body.phone;
+    const email = req.body.email;
+    // const confirmPassword=req.body.confirmPassword;
+    const name = req.body.name;
+    console.log("signup hit");
+    let otp = null;
+    // let tokenGenerated=null;
+    console.log(name);
 
-  let otp = null;
-  // let tokenGenerated=null;
-  console.log(name);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = new Error("Validation failed");
+      error.statusCode = 422;
+      error.data = errors.array();
+      console.log(error, error[0]);
+      res.status(422).json({ message: errors.array() });
+      throw error;
+    }
 
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const error = new Error("Validation failed");
-    error.statusCode = 422;
-    error.data = errors.array();
-    console.log(error, error[0]);
-    res.status(422).json({ message: errors.array() });
-    throw error;
-  }
-
-  const Newuser = new User({
-    email: email,
-    isverified: false,
-    name: name,
-    resetVerified: false,
-  });
-  Newuser.save();
-  console.log("details saved in the database");
-
-  otp = Math.floor(100000 + Math.random() * 900000);
-
-  const OTP = new Otp({
-    otp: otp,
-    email: email,
-  });
-
-  const otpsave = await OTP.save();
-  console.log(otp);
-  const sendOtp = new AWS.SNS({ apiVersion: "2010-03-31" }).publish({
-    Message: `${otp} is your BSP Learning verification code`,
-    PhoneNumber: "+91" + phone,
-    MessageAttributes: {
-      "AWS.SNS.SMS.SenderID": {
-        DataType: "String",
-        StringValue: "BSPVERIFY",
-      },
-    },
-  }).promise();
-  sendOtp
-    .then((response) => {
-      res.status(201).json({
-        message: "OTP sent to your Phone",
-        messageID: response.MessageId,
-      });
-    })
-    .catch((error) => {
-      const errorotp = new Error(error);
-      console.log(error);
-      throw errorotp;
+    const Newuser = new User({
+      email: email,
+      isverified: false,
+      name: name,
+      phone: phone,
+      resetVerified: false,
     });
+    Newuser.save();
+    console.log("details saved in the database");
+
+    otp = Math.floor(100000 + Math.random() * 900000);
+
+    const OTP = new Otp({
+      otp: otp,
+      email: email,
+    });
+
+    const otpsave = await OTP.save();
+    console.log(otp);
+    const sendOtp = new AWS.SNS({ apiVersion: "2010-03-31" })
+      .publish({
+        Message: `${otp} is your BSP Learning verification code`,
+        PhoneNumber: "+91" + phone,
+        MessageAttributes: {
+          "AWS.SNS.SMS.SenderID": {
+            DataType: "String",
+            StringValue: "BSPVERIFY",
+          },
+        },
+      })
+      .promise();
+    sendOtp
+      .then((response) => {
+        res.status(201).json({
+          message: "OTP sent to your Phone",
+          messageID: response.MessageId,
+        });
+      })
+      .catch((error) => {
+        const errorotp = new Error(error);
+        console.log(error);
+        throw errorotp;
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.loginPhone = (req, res, next) => {
+  try {
+    console.log("hit");
+    const phone = req.body.phone;
+    console.log(phone);
+    let otp = null;
+    // const errors = validationResult(req);
+
+    // if (!errors.isEmpty()) {
+    //   const error = new Error("Validation failed");
+    //   error.statusCode = 422;
+    //   error.data = errors.array();
+    //   console.log(error, error[0]);
+    //   res.status(422).json({ message: "User with this email doesnt exists" });
+    //   throw error;
+    // }
+
+    User.findOne({ phone: phone })
+      .then((user) => {
+        if (!user) {
+          const error = new Error("No User Found");
+          return res.status(404).json({message : 'no user found, try signing up'})
+          throw error;
+        }
+        console.log(user);
+        const { email } = user;
+        otp = Math.floor(100000 + Math.random() * 900000);
+        console.log("otp =", otp);
+        Otp.findOne({ email: email }).then((user) => {
+          // if the otp record is deleted
+          if (!user) {
+            const OTP = new Otp({
+              otp: otp,
+              email: email,
+            });
+
+            OTP.save().then(() => {
+              const sendOtp = new AWS.SNS({ apiVersion: "2010-03-31" })
+                .publish({
+                  Message: `${otp} is your BSP Learning verification code`,
+                  PhoneNumber: "+91" + phone,
+                  MessageAttributes: {
+                    "AWS.SNS.SMS.SenderID": {
+                      DataType: "String",
+                      StringValue: "BSPVERIFY",
+                    },
+                  },
+                })
+                .promise();
+              sendOtp
+                .then((response) => {
+                  return res.status(422).json({
+                    message: "OTP has been sent to your phone",
+                    redirect: true,
+                    email: email,
+                  });
+                })
+                .catch((error) => {
+                  const errorotp = new Error(error);
+                  console.log(error);
+                  throw errorotp;
+                });
+
+              console.log("mail sent ", otp);
+            });
+          } else {
+            user.otp = otp;
+            user.save().then(() => {
+              const sendOtp = new AWS.SNS({ apiVersion: "2010-03-31" })
+                .publish({
+                  Message: `${otp} is your BSP Learning verification code`,
+                  PhoneNumber: "+91" + phone,
+                  MessageAttributes: {
+                    "AWS.SNS.SMS.SenderID": {
+                      DataType: "String",
+                      StringValue: "BSPVERIFY",
+                    },
+                  },
+                })
+                .promise();
+              sendOtp
+                .then((response) => {
+                  return res.status(422).json({
+                    message: "OTP has been sent to your phone",
+                    redirect: true,
+                    email: email,
+                  });
+                })
+                .catch((error) => {
+                  const errorotp = new Error(error);
+                  console.log(error);
+                  throw errorotp;
+                });
+            });
+          }
+        });
+      })
+
+      .catch((err) => {
+        (err) => {
+          if (!err.statusCode) {
+            err.statusCode = 500;
+          }
+          console.log(err);
+          next(err);
+        };
+      });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.signup = (req, res) => {

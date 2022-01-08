@@ -1,107 +1,58 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
-//import Login from '../Login/Login';
-import Layout from "../../../../components/Layout/Layout";
 import AuthService from "../../../../ApiServices/auth.service";
+import Layout from "../../../../components/Layout/Layout";
 import "../Form.css";
+import { Link, Redirect } from "react-router-dom";
 import Input from "../../../../components/UI/Input/FormInput";
+import SpinnerButton from "../../../../components/UI/Spinners/SpinnerButton";
 import MainPage from "../../../../components/UI/MainPage/MainPage";
 import Google_logo from "../../../../components/UI/Logo/google";
-import SpinnerButton from "../../../../components/UI/Spinners/SpinnerButton";
 import GoogleLogin from "react-google-login";
 import SumbitButton from "../../../../components/UI/Buttons/SumbitButton";
 import Alert from "../alert";
-import { logoBsp } from "../../../../assets/Images/bsp_logo-black.png";
 
-class Signup extends Component {
+class LoginPhone extends Component {
   state = {
     Form: {
-      name: {
-        placeholder: "Full Name",
-        value: "",
-        valid: false,
-        type: "text",
-        error: " ",
-        msg: "",
-
-        validation: {
-          required: true,
-          minLength: 5,
-          maxLength: 15,
-        },
-
-        touched: false,
-      },
       phone: {
-        placeholder: "Phone",
+        placeholder: "Phone Number",
         value: "",
         valid: false,
         type: "number",
-        error: "",
-        msg: "",
-
-        validation: {
-          required: true,
-          maxLength: 10,
-        },
-        touched: false,
-      },
-      email: {
-        placeholder: "Email",
-        value: "",
-        valid: false,
-        type: "email",
         error: " ",
         msg: "",
 
         validation: {
           required: true,
-          regex: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
         },
         touched: false,
       },
 
-      // password: {
-      //   placeholder: "Password",
-      //   value: "",
-      //   valid: false,
-      //   type: "password",
-      //   error: " ",
-      //   msg: "",
+    //   password: {
+    //     placeholder: "Password",
+    //     value: "",
+    //     valid: false,
+    //     type: "password",
+    //     error: " ",
+    //     msg: "",
 
-      //   validation: {
-      //     required: true,
-      //     minLength: 5,
-      //     maxLength: 18,
-      //   },
-      //   touched: false,
-      // },
-
-      // confirmPassword: {
-      //   placeholder: "Confirm Password",
-      //   value: "",
-      //   valid: false,
-      //   type: "password",
-      //   error: " ",
-      //   msg: "",
-
-      //   validation: {
-      //     required: true,
-      //     match: true,
-      //   },
-      //   touched: false,
-      // },
+    //     validation: {
+    //       required: true,
+    //       minLength: 5,
+    //       maxLength: 18,
+    //     },
+    //     touched: false,
+    //   },
     },
-
     loading: false,
-    redirect: null,
 
     alert: {
       valid: false,
       msg: "",
-      alertType: " ",
+      alertType: "",
     },
 
+    redirect: null,
     alertPressed: false,
   };
 
@@ -116,7 +67,6 @@ class Signup extends Component {
   checkValidity(value, rules) {
     let isValid = true;
     const regex = rules.regex;
-
     if (rules.required) {
       isValid = value.trim() !== "" && isValid;
     }
@@ -132,10 +82,6 @@ class Signup extends Component {
     if (rules.regex) {
       isValid = regex.test(value) && isValid;
     }
-
-    // if (rules.match) {
-    //   isValid = value === this.state.Form["password"].value && isValid;
-    // }
 
     return isValid;
   }
@@ -170,52 +116,21 @@ class Signup extends Component {
       updatedElement.error = "";
     }
 
-    // msg errrors for username
-
-    if (inputIdentifier === "name" && !updatedElement.valid) {
-      updatedElement.error = "Minimum:5 and Maximum:15 characters";
-      updatedElement.msg = "";
-    }
-    if (inputIdentifier === "name" && updatedElement.valid) {
-      updatedElement.error = "";
-      updatedElement.msg = "valid";
-    }
-
-    //msg errors for phone
-    if (inputIdentifier === "phone" && !updatedElement.valid) {
-      updatedElement.error = "Not a valid Phone number";
-      updatedElement.msg = "";
-    }
-    if (inputIdentifier === "name" && updatedElement.valid) {
-      updatedElement.error = "";
-      updatedElement.msg = "valid";
-    }
-
     // msg error for password
     // if (inputIdentifier === "password" && !updatedElement.valid) {
-    //   updatedElement.error = "Minimum:5 and Maximum:18 characters";
+    //   updatedElement.error = "At least 5 characters and at most 18";
     //   updatedElement.msg = "";
     // }
     // if (inputIdentifier === "password" && updatedElement.valid) {
     //   updatedElement.error = "";
     //   updatedElement.msg = "valid";
     // }
-    // confirm password
-    // if (inputIdentifier === "confirmPassword" && !updatedElement.valid) {
-    //   updatedElement.error = "Passwords do not match";
-    //   updatedElement.msg = "";
-    // }
-    // if (inputIdentifier === "confirmPassword" && updatedElement.valid) {
-    //   updatedElement.error = "";
-    //   updatedElement.msg = "Password matched!";
-    // }
-
     // msg errors for email
-    if (inputIdentifier === "email" && !updatedElement.valid) {
+    if (inputIdentifier === "phone" && !updatedElement.valid) {
       updatedElement.error = "Invalid format";
       updatedElement.msg = "";
     }
-    if (inputIdentifier === "email" && updatedElement.valid) {
+    if (inputIdentifier === "phone" && updatedElement.valid) {
       updatedElement.error = "";
       updatedElement.msg = "valid";
     }
@@ -244,51 +159,61 @@ class Signup extends Component {
   formHandler = (event) => {
     event.preventDefault();
     this.setState({ alertPressed: true });
+
     setTimeout(this.timeout, 3000);
 
     if (this.OverallValidity()) {
       this.setState({ loading: true });
-
-      localStorage.setItem("email", this.state.Form["email"].value);
-      localStorage.setItem("phone", this.state.Form["phone"].value);
-
       const formData = {};
       for (let formElement in this.state.Form) {
         formData[formElement] = this.state.Form[formElement].value;
       }
 
-      AuthService.register(formData)
+      localStorage.setItem("phone", this.state.Form["phone"].value);
+
+      AuthService.login(formData)
         .then((response) => {
           console.log("Response:", response);
 
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("valid", true);
-          localStorage.setItem("type", "success");
-          localStorage.setItem("msg", response.data.message);
+          this.AlertError("Successfully Logged in", "success");
+          localStorage.setItem("email", response.data.email)
 
-          this.setState({ redirect: "/signup/otp" });
+          localStorage.setItem("user", response.data.access_token);
+          localStorage.setItem("ref_token", response.data.referesh_token);
+          localStorage.setItem("userId", response.data.userId);
+          localStorage.setItem("userName", response.data.username);
+
+          this.setState({ loading: false });
+          this.setState({ redirect: "/HomePage" });
         })
-        //  alert("Something went wrong")})
 
         .catch((error) => {
           console.log(error.response);
           this.setState({ loading: false });
-          this.AlertError(error.response.data.message[0].msg, "danger");
+          this.AlertError(error.response.data.message, "danger");
+          localStorage.setItem("email", error.response.data.email)
+          if (error.response.data.redirect) {
+            this.setState({ redirect: "signup/otp" });
+          }
         });
-    } else {
-      this.AlertError("Make sure the Validations are correct", "warning");
-    }
+    } else this.AlertError("Make sure the Validations are correct", "warning");
   };
+
+  // google authentication using Oauth2
   responseGoogle = (response) => {
     console.log(response);
     const form = {};
     form["tokenId"] = response.tokenId;
 
-    AuthService.Google_Signup(form)
+    AuthService.Google_login(form)
       .then((response) => {
         console.log(response);
+        localStorage.setItem("user", response.data.access_token);
+        localStorage.setItem("ref_token", response.data.referesh_token);
+        localStorage.setItem("userId", response.data.userId);
+        localStorage.setItem("userName", response.data.username);
 
-        this.setState({ redirect: "/login" });
+        this.setState({ redirect: "/HomePage" });
       })
       .catch((error) => {
         console.log(error);
@@ -296,7 +221,15 @@ class Signup extends Component {
       });
   };
 
+  FailResponseGoogle = () => {
+    console.log("something is wrong");
+  };
+
   render() {
+    localStorage.removeItem("valid");
+    localStorage.removeItem("msg");
+    localStorage.removeItem("type");
+
     let alertContent = null;
 
     if (this.state.alert.valid) {
@@ -321,14 +254,13 @@ class Signup extends Component {
       });
     }
 
-    let SigninSumbitButton = (
-      <SumbitButton className={"Sumbit-btn"} Label={"Create Account"} />
+    let LoginSumbitButton = (
+      <SumbitButton className={"Sumbit-btn"} Label={"Login"} />
     );
 
     if (this.state.loading) {
-      SigninSumbitButton = <SpinnerButton spinnerclass={"Sumbit-btn"} />;
+      LoginSumbitButton = <SpinnerButton spinnerclass={"Sumbit-btn"} />;
     }
-
     let logo = (
       <div
         style={{
@@ -353,7 +285,6 @@ class Signup extends Component {
     let form = (
       <div className="login-form">
         {logo}
-
         <form onSubmit={this.formHandler}>
           {formElementsArray.map((x) => (
             <Input
@@ -369,15 +300,17 @@ class Signup extends Component {
               changed={(event) => this.inputchangeHandler(event, x.id)}
             />
           ))}
+          {/* <Link to="/forgotpasswordemail">
+            <p className="forgot-password"> Forgot Password?</p>
+          </Link> */}
 
-          {SigninSumbitButton}
+          {LoginSumbitButton}
           <p className="account-login">
-            {" "}
-            Already have an account? <Link to="/login">Login</Link>
+            <Link to="/signup"> New User? Sign up</Link>
           </p>
         </form>
-        {/* <p className="devider-or">OR</p> */}
-        {/* <GoogleLogin
+        {/* <p className="devider-or">OR</p>
+        <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_API_KEY}
           render={(renderProps) => (
             <button
@@ -386,7 +319,7 @@ class Signup extends Component {
               className="google-btn"
             >
               {" "}
-              <Google_logo /> Signup using google
+              <Google_logo /> Continue using google
             </button>
           )}
           buttonText="Login"
@@ -402,9 +335,8 @@ class Signup extends Component {
         {alertContent}
         <div className="SideContent">
           <MainPage
-            logo={logoBsp}
             shelp={true}
-            heading1={"Start your"}
+            heading1={"Resume your"}
             heading2={"learning with"}
           />
 
@@ -415,4 +347,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default LoginPhone;

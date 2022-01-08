@@ -37,7 +37,9 @@ router.post(
       .custom((value, { req }) => {
         return User.findOne({ email: value }).then((user) => {
           if (user) {
-            return Promise.reject("Email already exists!");
+            // return Promise.reject("Email already exists!");
+            const error = new Error('Email already exists')
+            throw error
           }
         });
       }),
@@ -45,7 +47,7 @@ router.post(
   ],
   authController.signupPhone
 );
-
+router.post("/login_phone", authController.loginPhone)
 router.post(
   "/login",
   [
