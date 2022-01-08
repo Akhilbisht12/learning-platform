@@ -18,7 +18,6 @@ import Preference from "./Pages/HomePage/Preference";
 import Stripe from "./Pages/payment/StripeContainer";
 import Chat from "./Pages/Chat/Chat";
 import SignUpwithPhone from "./Pages/Auth/Forms/Signup/SignUpwithPhone";
-
 class App extends Component {
   render() {
     return (
@@ -75,8 +74,8 @@ class App extends Component {
           {/* chat room for teacher and student */}
 
           <Route path="/chat" component={Chat} />
-          <Redirect to="/signupOtp" />
-          {/* <Redirect to="/home/all" /> */}
+          {/* <Redirect to="/signupOtp" /> */}
+          <Redirect to="/home/all" />
         </Switch>
       </BrowserRouter>
     );
