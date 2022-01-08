@@ -17,19 +17,21 @@ import CoursePage from "./Pages/CoursePage/CoursePage";
 import Preference from "./Pages/HomePage/Preference";
 import Stripe from "./Pages/payment/StripeContainer";
 import Chat from "./Pages/Chat/Chat";
+import SignupBSP from "./Pages/Auth/Forms/Signup/SignupBSP";
 import SignUpwithPhone from "./Pages/Auth/Forms/Signup/SignUpwithPhone";
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/signupOtp" component={SignUpwithPhone} />
-          <Route path="/signup" exact component={Signup} />
+          {/* <Route path="/signupOtp" component={SignUpwithPhone} /> */}
+          {/* <Route path="/signup" exact component={Signup} /> */}
           <Route path="/login" component={Login} />
           <Route path="/signup/otp" component={Otp} />
           <Route path="/forgotpasswordemail" component={EmailVerify} />
           <Route path="/ForgotPasswordotp" component={ForgotPasswordotp} />
           <Route path="/ResetPassword" component={ResetPassword} />
+          <Route path="/signup" component={SignupBSP} />
 
           <Route
             path="/home/:CourseName"
