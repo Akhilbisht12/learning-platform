@@ -1,19 +1,51 @@
 import React, { Component } from "react";
-import AuthService from "../../../../ApiServices/auth.service";
-import Layout from "../../../../components/Layout/Layout";
-import "../Form.css";
 import { Link, Redirect } from "react-router-dom";
+//import Login from '../Login/Login';
+import Layout from "../../../../components/Layout/Layout";
+import AuthService from "../../../../ApiServices/auth.service";
+import "../Form.css";
 import Input from "../../../../components/UI/Input/FormInput";
-import SpinnerButton from "../../../../components/UI/Spinners/SpinnerButton";
 import MainPage from "../../../../components/UI/MainPage/MainPage";
 import Google_logo from "../../../../components/UI/Logo/google";
+import SpinnerButton from "../../../../components/UI/Spinners/SpinnerButton";
 import GoogleLogin from "react-google-login";
 import SumbitButton from "../../../../components/UI/Buttons/SumbitButton";
 import Alert from "../alert";
+import { logoBsp } from "../../../../assets/Images/bsp_logo-black.png";
 
-class Login extends Component {
+class Signup extends Component {
   state = {
     Form: {
+      name: {
+        placeholder: "Full Name",
+        value: "",
+        valid: false,
+        type: "text",
+        error: " ",
+        msg: "",
+
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 15,
+        },
+
+        touched: false,
+      },
+      phone: {
+        placeholder: "Phone",
+        value: "",
+        valid: false,
+        type: "number",
+        error: "",
+        msg: "",
+
+        validation: {
+          required: true,
+          maxLength: 10,
+        },
+        touched: false,
+      },
       email: {
         placeholder: "Email",
         value: "",
@@ -44,16 +76,32 @@ class Login extends Component {
         },
         touched: false,
       },
+
+      confirmPassword: {
+        placeholder: "Confirm Password",
+        value: "",
+        valid: false,
+        type: "password",
+        error: " ",
+        msg: "",
+
+        validation: {
+          required: true,
+          match: true,
+        },
+        touched: false,
+      },
     },
+
     loading: false,
+    redirect: null,
 
     alert: {
       valid: false,
       msg: "",
-      alertType: "",
+      alertType: " ",
     },
 
-    redirect: null,
     alertPressed: false,
   };
 
@@ -68,6 +116,7 @@ class Login extends Component {
   checkValidity(value, rules) {
     let isValid = true;
     const regex = rules.regex;
+
     if (rules.required) {
       isValid = value.trim() !== "" && isValid;
     }
@@ -82,6 +131,10 @@ class Login extends Component {
 
     if (rules.regex) {
       isValid = regex.test(value) && isValid;
+    }
+
+    if (rules.match) {
+      isValid = value === this.state.Form["password"].value && isValid;
     }
 
     return isValid;
@@ -117,15 +170,46 @@ class Login extends Component {
       updatedElement.error = "";
     }
 
+    // msg errrors for username
+
+    if (inputIdentifier === "name" && !updatedElement.valid) {
+      updatedElement.error = "Minimum:5 and Maximum:15 characters";
+      updatedElement.msg = "";
+    }
+    if (inputIdentifier === "name" && updatedElement.valid) {
+      updatedElement.error = "";
+      updatedElement.msg = "valid";
+    }
+
+    //msg errors for phone
+    if (inputIdentifier === "phone" && !updatedElement.valid) {
+      updatedElement.error = "Not a valid Phone number";
+      updatedElement.msg = "";
+    }
+    if (inputIdentifier === "name" && updatedElement.valid) {
+      updatedElement.error = "";
+      updatedElement.msg = "valid";
+    }
+
     // msg error for password
     if (inputIdentifier === "password" && !updatedElement.valid) {
-      updatedElement.error = "At least 5 characters and at most 18";
+      updatedElement.error = "Minimum:5 and Maximum:18 characters";
       updatedElement.msg = "";
     }
     if (inputIdentifier === "password" && updatedElement.valid) {
       updatedElement.error = "";
       updatedElement.msg = "valid";
     }
+    // confirm password
+    if (inputIdentifier === "confirmPassword" && !updatedElement.valid) {
+      updatedElement.error = "Passwords do not match";
+      updatedElement.msg = "";
+    }
+    if (inputIdentifier === "confirmPassword" && updatedElement.valid) {
+      updatedElement.error = "";
+      updatedElement.msg = "Password matched!";
+    }
+
     // msg errors for email
     if (inputIdentifier === "email" && !updatedElement.valid) {
       updatedElement.error = "Invalid format";
@@ -160,59 +244,51 @@ class Login extends Component {
   formHandler = (event) => {
     event.preventDefault();
     this.setState({ alertPressed: true });
-
     setTimeout(this.timeout, 3000);
 
     if (this.OverallValidity()) {
       this.setState({ loading: true });
+
+      localStorage.setItem("email", this.state.Form["email"].value);
+      localStorage.setItem("phone", this.state.Form["phone"].value);
+
       const formData = {};
       for (let formElement in this.state.Form) {
         formData[formElement] = this.state.Form[formElement].value;
       }
 
-      localStorage.setItem("email", this.state.Form["email"].value);
-
-      AuthService.login(formData)
+      AuthService.register(formData)
         .then((response) => {
           console.log("Response:", response);
 
-          this.AlertError("Successfully Logged in", "success");
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("valid", true);
+          localStorage.setItem("type", "success");
+          localStorage.setItem("msg", response.data.message);
 
-          localStorage.setItem("user", response.data.access_token);
-          localStorage.setItem("ref_token", response.data.referesh_token);
-          localStorage.setItem("userId", response.data.userId);
-          localStorage.setItem("userName", response.data.username);
-
-          this.setState({ loading: false });
-          this.setState({ redirect: "/HomePage" });
+          this.setState({ redirect: "/signup/otp" });
         })
+        //  alert("Something went wrong")})
 
         .catch((error) => {
           console.log(error.response);
           this.setState({ loading: false });
-          this.AlertError(error.response.data.message, "danger");
-          if (error.response.data.redirect) {
-            this.setState({ redirect: "signup/otp" });
-          }
+          this.AlertError(error.response.data.message[0].msg, "danger");
         });
-    } else this.AlertError("Make sure the Validations are correct", "warning");
+    } else {
+      this.AlertError("Make sure the Validations are correct", "warning");
+    }
   };
-
-  // google authentication using Oauth2
   responseGoogle = (response) => {
     console.log(response);
     const form = {};
     form["tokenId"] = response.tokenId;
 
-    AuthService.Google_login(form)
+    AuthService.Google_Signup(form)
       .then((response) => {
         console.log(response);
-        localStorage.setItem("user", response.data.access_token);
-        localStorage.setItem("ref_token", response.data.referesh_token);
-        localStorage.setItem("userId", response.data.userId);
-        localStorage.setItem("userName", response.data.username);
 
-        this.setState({ redirect: "/HomePage" });
+        this.setState({ redirect: "/login" });
       })
       .catch((error) => {
         console.log(error);
@@ -220,15 +296,7 @@ class Login extends Component {
       });
   };
 
-  FailResponseGoogle = () => {
-    console.log("something is wrong");
-  };
-
   render() {
-    localStorage.removeItem("valid");
-    localStorage.removeItem("msg");
-    localStorage.removeItem("type");
-
     let alertContent = null;
 
     if (this.state.alert.valid) {
@@ -253,13 +321,14 @@ class Login extends Component {
       });
     }
 
-    let LoginSumbitButton = (
-      <SumbitButton className={"Sumbit-btn"} Label={"Login"} />
+    let SigninSumbitButton = (
+      <SumbitButton className={"Sumbit-btn"} Label={"Create Account"} />
     );
 
     if (this.state.loading) {
-      LoginSumbitButton = <SpinnerButton spinnerclass={"Sumbit-btn"} />;
+      SigninSumbitButton = <SpinnerButton spinnerclass={"Sumbit-btn"} />;
     }
+
     let logo = (
       <div
         style={{
@@ -284,6 +353,7 @@ class Login extends Component {
     let form = (
       <div className="login-form">
         {logo}
+
         <form onSubmit={this.formHandler}>
           {formElementsArray.map((x) => (
             <Input
@@ -299,13 +369,11 @@ class Login extends Component {
               changed={(event) => this.inputchangeHandler(event, x.id)}
             />
           ))}
-          <Link to="/forgotpasswordemail">
-            <p className="forgot-password"> Forgot Password?</p>
-          </Link>
 
-          {LoginSumbitButton}
+          {SigninSumbitButton}
           <p className="account-login">
-            <Link to="/signup"> New User? Sign up</Link>
+            {" "}
+            Already have an account? <Link to="/login">Login</Link>
           </p>
         </form>
         <p className="devider-or">OR</p>
@@ -318,7 +386,7 @@ class Login extends Component {
               className="google-btn"
             >
               {" "}
-              <Google_logo /> Continue using google
+              <Google_logo /> Signup using google
             </button>
           )}
           buttonText="Login"
@@ -334,8 +402,9 @@ class Login extends Component {
         {alertContent}
         <div className="SideContent">
           <MainPage
+            logo={logoBsp}
             shelp={true}
-            heading1={"Resume your"}
+            heading1={"Start your"}
             heading2={"learning with"}
           />
 
@@ -346,4 +415,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Signup;
