@@ -20,7 +20,7 @@ let transporter = nodemailer.createTransport({
   secure: true, // true for 465, false for other ports
   auth: {
     user: "akhil@upgrate.in", // generated ethereal user
-    pass: "Akhil897987@#", // generated ethereal password
+    pass: "123@#", // generated ethereal password
   },
 });
 
