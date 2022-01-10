@@ -15,12 +15,12 @@ const AWS = require("aws-sdk");
 // }))
 
 let transporter = nodemailer.createTransport({
-  host: "smtp.hostinger.com",
-  port: 465,
+  host: api_key.smtp_host,
+  port: api_key.smtp_pass,
   secure: true, // true for 465, false for other ports
   auth: {
-    user: "akhil@upgrate.in", // generated ethereal user
-    pass: "Akhil897987@#", // generated ethereal password
+    user: api_key.smtp_user, // generated ethereal user
+    pass: api_key.smtp_pass, // generated ethereal password
   },
 });
 

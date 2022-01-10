@@ -24,3 +24,8 @@ exports.googleAuth = process.env.OAuth2Client;
 //stripe payment
 exports.stripePayment = process.env.STRIPE_SECRET_TOKEN;
 
+exports.smtp_host = process.env.SMTP_HOST
+exports.smtp_port = process.env.SMTP_PORT
+exports.smtp_user = process.env.SMTP_USER
+exports.smtp_pass = process.env.SMTP_PASS
+
