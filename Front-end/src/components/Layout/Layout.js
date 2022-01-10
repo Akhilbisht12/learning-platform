@@ -2,19 +2,34 @@ import React, { Component } from "react";
 //import Aux from '../../hoc/ReactFrag';
 import "./Layout.css";
 import Navbar from "../UI/Navigation/Navbar/Navbar";
-
-class Layout extends Component {
-  render() {
+import { useLocation } from "react-router-dom";
+const height = "100vh";
+const Layout = (props) => {
+  let locationPage = useLocation();
+  if (
+    locationPage.pathname === "/login" ||
+    locationPage.pathname === "/signup"
+  ) {
     return (
-      <>
-        <Navbar />
-
-        <main style={{ background: "#00005c" }} className="Content">
-          {this.props.children}
+      <div>
+        <main
+          style={{ height: `${height}`, background: "#00005c" }}
+          className="Content"
+        >
+          {props.children}
         </main>
-      </>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Navbar />
+        <main style={{ background: "#00005c" }} className="Content">
+          {props.children}
+        </main>
+      </div>
     );
   }
-}
+};
 
 export default Layout;

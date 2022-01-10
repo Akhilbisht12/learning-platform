@@ -16,7 +16,7 @@ const Influencer = () => {
     console.log(user)
     AuthServices.InfluencerForm(formdata, user)
   }
-
+   
   return (
     <div>
       <input

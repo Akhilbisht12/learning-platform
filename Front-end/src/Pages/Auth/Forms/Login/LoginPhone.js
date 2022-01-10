@@ -28,21 +28,21 @@ class LoginPhone extends Component {
         touched: false,
       },
 
-    //   password: {
-    //     placeholder: "Password",
-    //     value: "",
-    //     valid: false,
-    //     type: "password",
-    //     error: " ",
-    //     msg: "",
+      password: {
+        placeholder: "Password",
+        value: "",
+        valid: false,
+        type: "password",
+        error: " ",
+        msg: "",
 
-    //     validation: {
-    //       required: true,
-    //       minLength: 5,
-    //       maxLength: 18,
-    //     },
-    //     touched: false,
-    //   },
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 18,
+        },
+        touched: false,
+      },
     },
     loading: false,
 
@@ -117,14 +117,14 @@ class LoginPhone extends Component {
     }
 
     // msg error for password
-    // if (inputIdentifier === "password" && !updatedElement.valid) {
-    //   updatedElement.error = "At least 5 characters and at most 18";
-    //   updatedElement.msg = "";
-    // }
-    // if (inputIdentifier === "password" && updatedElement.valid) {
-    //   updatedElement.error = "";
-    //   updatedElement.msg = "valid";
-    // }
+    if (inputIdentifier === "password" && !updatedElement.valid) {
+      updatedElement.error = "At least 5 characters and at most 18";
+      updatedElement.msg = "";
+    }
+    if (inputIdentifier === "password" && updatedElement.valid) {
+      updatedElement.error = "";
+      updatedElement.msg = "valid";
+    }
     // msg errors for email
     if (inputIdentifier === "phone" && !updatedElement.valid) {
       updatedElement.error = "Invalid format";
@@ -176,7 +176,7 @@ class LoginPhone extends Component {
           console.log("Response:", response);
 
           this.AlertError("Successfully Logged in", "success");
-          localStorage.setItem("email", response.data.email)
+          localStorage.setItem("email", response.data.email);
 
           localStorage.setItem("user", response.data.access_token);
           localStorage.setItem("ref_token", response.data.referesh_token);
@@ -191,7 +191,7 @@ class LoginPhone extends Component {
           console.log(error.response);
           this.setState({ loading: false });
           this.AlertError(error.response.data.message, "danger");
-          localStorage.setItem("email", error.response.data.email)
+          localStorage.setItem("email", error.response.data.email);
           if (error.response.data.redirect) {
             this.setState({ redirect: "signup/otp" });
           }
@@ -276,8 +276,25 @@ class LoginPhone extends Component {
           width={100}
           style={{ borderRadius: "50%" }}
         />
-        <p style={{ fontSize: "1rem", fontWeight: "bolder" }}>
+        <p
+          style={{
+            fontSize: "2rem",
+            fontWeight: "bolder",
+            color: "white",
+            padding: "1rem",
+          }}
+        >
           बहुजन समाज पार्टी
+        </p>
+        <p
+          style={{
+            color: "white",
+            fontSize: "1rem",
+            width: "auto",
+            textAlign: "center",
+          }}
+        >
+          Please Login For Official Training App
         </p>
       </div>
     );
