@@ -114,7 +114,9 @@ exports.loginPhone = (req, res, next) => {
       .then((user) => {
         if (!user) {
           const error = new Error("No User Found");
-          return res.status(404).json({message : 'no user found, try signing up'})
+          return res
+            .status(404)
+            .json({ message: "no user found, try signing up" });
           throw error;
         }
         console.log(user);
@@ -149,7 +151,7 @@ exports.loginPhone = (req, res, next) => {
                     redirect: true,
                     email: email,
                   });
-                  console.log(response)
+                  console.log(response);
                 })
                 .catch((error) => {
                   const errorotp = new Error(error);
@@ -181,7 +183,7 @@ exports.loginPhone = (req, res, next) => {
                     redirect: true,
                     email: email,
                   });
-                  console.log(response)
+                  console.log(response);
                 })
                 .catch((error) => {
                   const errorotp = new Error(error);
