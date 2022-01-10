@@ -82,36 +82,36 @@ class Signup extends Component {
         touched: false,
       },
 
-      password: {
-        placeholder: "Password",
-        value: "",
-        valid: false,
-        type: "password",
-        error: " ",
-        msg: "",
+      // password: {
+      //   placeholder: "Password",
+      //   value: "",
+      //   valid: false,
+      //   type: "password",
+      //   error: " ",
+      //   msg: "",
 
-        validation: {
-          required: true,
-          minLength: 5,
-          maxLength: 18,
-        },
-        touched: false,
-      },
+      //   validation: {
+      //     required: true,
+      //     minLength: 5,
+      //     maxLength: 18,
+      //   },
+      //   touched: false,
+      // },
 
-      confirmPassword: {
-        placeholder: "Confirm Password",
-        value: "",
-        valid: false,
-        type: "password",
-        error: " ",
-        msg: "",
+      // confirmPassword: {
+      //   placeholder: "Confirm Password",
+      //   value: "",
+      //   valid: false,
+      //   type: "password",
+      //   error: " ",
+      //   msg: "",
 
-        validation: {
-          required: true,
-          match: true,
-        },
-        touched: false,
-      },
+      //   validation: {
+      //     required: true,
+      //     match: true,
+      //   },
+      //   touched: false,
+      // },
     },
 
     loading: false,
@@ -154,9 +154,9 @@ class Signup extends Component {
       isValid = regex.test(value) && isValid;
     }
 
-    if (rules.match) {
-      isValid = value === this.state.Form["password"].value && isValid;
-    }
+    // if (rules.match) {
+    //   isValid = value === this.state.Form["password"].value && isValid;
+    // }
 
     return isValid;
   }
@@ -213,23 +213,23 @@ class Signup extends Component {
     }
 
     // msg error for password
-    if (inputIdentifier === "password" && !updatedElement.valid) {
-      updatedElement.error = "Minimum:5 and Maximum:18 characters";
-      updatedElement.msg = "";
-    }
-    if (inputIdentifier === "password" && updatedElement.valid) {
-      updatedElement.error = "";
-      updatedElement.msg = "valid";
-    }
+    // if (inputIdentifier === "password" && !updatedElement.valid) {
+    //   updatedElement.error = "Minimum:5 and Maximum:18 characters";
+    //   updatedElement.msg = "";
+    // }
+    // if (inputIdentifier === "password" && updatedElement.valid) {
+    //   updatedElement.error = "";
+    //   updatedElement.msg = "valid";
+    // }
     // confirm password
-    if (inputIdentifier === "confirmPassword" && !updatedElement.valid) {
-      updatedElement.error = "Passwords do not match";
-      updatedElement.msg = "";
-    }
-    if (inputIdentifier === "confirmPassword" && updatedElement.valid) {
-      updatedElement.error = "";
-      updatedElement.msg = "Password matched!";
-    }
+    // if (inputIdentifier === "confirmPassword" && !updatedElement.valid) {
+    //   updatedElement.error = "Passwords do not match";
+    //   updatedElement.msg = "";
+    // }
+    // if (inputIdentifier === "confirmPassword" && updatedElement.valid) {
+    //   updatedElement.error = "";
+    //   updatedElement.msg = "Password matched!";
+    // }
 
     // msg errors for email
     if (inputIdentifier === "email" && !updatedElement.valid) {
@@ -399,8 +399,8 @@ class Signup extends Component {
             Already have an account? <Link to="/login">Login</Link>
           </p>
         </form>
-        <p className="devider-or">OR</p>
-        <GoogleLogin
+        {/* <p className="devider-or">OR</p> */}
+        {/* <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_API_KEY}
           render={(renderProps) => (
             <button
@@ -416,7 +416,7 @@ class Signup extends Component {
           onSuccess={this.responseGoogle}
           onFailure={this.FailResponseGoogle}
           cookiePolicy={"single_host_origin"}
-        />
+        /> */}
       </div>
     );
 

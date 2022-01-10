@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-amplify/ui-react": "^2.1.6",
     "@ckeditor/ckeditor5-build-classic": "^23.0.0",
     "@ckeditor/ckeditor5-react": "^2.1.0",
     "@stripe/react-stripe-js": "^1.4.0",
@@ -11,6 +12,8 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "amazon-cognito-identity-js": "^5.2.4",
+    "aws-amplify": "^4.3.12",
+    "aws-amplify-react": "^5.1.9",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "firebase": "^8.3.1",
