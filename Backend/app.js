@@ -17,7 +17,7 @@ const teacherRoutes=require('./routes/teacher')
 const homeRoutes= require('./routes/homepage')
 const courseRoutes=require('./routes/coursepage')
 const stripeRoute=require('./routes/stripe')
-
+const formRoute = require('./routes/form')
 // const {addRoom,getUser} = require('./chat');
 
 const MONGODB_URI =api_key.mongo;
@@ -156,6 +156,7 @@ app.use(teacherRoutes);
 app.use(homeRoutes);
 app.use(courseRoutes);
 app.use(stripeRoute);
+app.use(formRoute)
 
 if (process.env.NODE_ENV !== 'test') {
   mongoose

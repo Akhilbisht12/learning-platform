@@ -149,6 +149,7 @@ exports.loginPhone = (req, res, next) => {
                     redirect: true,
                     email: email,
                   });
+                  console.log(response)
                 })
                 .catch((error) => {
                   const errorotp = new Error(error);
@@ -180,6 +181,7 @@ exports.loginPhone = (req, res, next) => {
                     redirect: true,
                     email: email,
                   });
+                  console.log(response)
                 })
                 .catch((error) => {
                   const errorotp = new Error(error);

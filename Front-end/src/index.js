@@ -8,15 +8,11 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-import { AmplifyProvider } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css"; // default theme
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <AmplifyProvider>
         <App />
-      </AmplifyProvider>
     </React.StrictMode>
   </Provider>,
   document.getElementById("root")
