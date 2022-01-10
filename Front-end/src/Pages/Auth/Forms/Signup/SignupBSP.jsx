@@ -46,6 +46,27 @@ class Signup extends Component {
         },
         touched: false,
       },
+      otp: {
+        placeholder: "Enter OTP",
+        value: "",
+        valid: false,
+        type: "email",
+        error: "",
+        msg: "",
+
+        validation: {
+          required: true,
+        },
+        touched: false,
+      },
+      verifyOtp: {
+        value: "Verify OTP",
+        type: "submit",
+        error: "",
+        style: {
+          background: "blue",
+        },
+      },
       email: {
         placeholder: "Email",
         value: "",
@@ -359,7 +380,9 @@ class Signup extends Component {
             <Input
               key={x.id}
               placeholder={x.config.placeholder}
+              style={x.config.style}
               value={x.config.value}
+              disabled={x.config.value}
               type={x.config.type}
               invalid={!x.config.valid}
               touched={x.config.touched}

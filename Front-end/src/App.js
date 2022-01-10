@@ -25,7 +25,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          {/* <Route path="/signupOtp" component={SignUpwithPhone} /> */}
+          <Route path="/signupOtp" component={SignUpwithPhone} />
           {/* <Route path="/signup" exact component={Signup} /> */}
           <Route path="/login" component={Login} />
           <Route path="/signup/otp" component={Otp} />
