@@ -9,7 +9,7 @@ class Layout extends Component {
       <>
         <Navbar />
 
-        <main style={{ background: "blue" }} className="Content">
+        <main style={{ background: "#00005c" }} className="Content">
           {this.props.children}
         </main>
       </>

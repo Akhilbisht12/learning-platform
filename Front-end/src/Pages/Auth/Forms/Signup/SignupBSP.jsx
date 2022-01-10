@@ -11,7 +11,7 @@ import SpinnerButton from "../../../../components/UI/Spinners/SpinnerButton";
 import GoogleLogin from "react-google-login";
 import SumbitButton from "../../../../components/UI/Buttons/SumbitButton";
 import Alert from "../alert";
-import { logoBsp } from "../../../../assets/Images/bsp_logo-black.png";
+import { logoBsp } from "../../../../assets/Images/bsp_logo-white.png";
 
 class Signup extends Component {
   state = {
