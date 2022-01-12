@@ -46,27 +46,6 @@ class Signup extends Component {
         },
         touched: false,
       },
-      otp: {
-        placeholder: "Enter OTP",
-        value: "",
-        valid: false,
-        type: "email",
-        error: "",
-        msg: "",
-
-        validation: {
-          required: true,
-        },
-        touched: false,
-      },
-      verifyOtp: {
-        value: "Verify OTP",
-        type: "submit",
-        error: "",
-        style: {
-          background: "blue",
-        },
-      },
       email: {
         placeholder: "Email",
         value: "",
@@ -365,8 +344,25 @@ class Signup extends Component {
           width={100}
           style={{ borderRadius: "50%" }}
         />
-        <p style={{ fontSize: "1rem", fontWeight: "bolder" }}>
+        <p
+          style={{
+            fontSize: "2rem",
+            fontWeight: "bolder",
+            color: "white",
+            padding: "1rem",
+          }}
+        >
           बहुजन समाज पार्टी
+        </p>
+        <p
+          style={{
+            color: "white",
+            fontSize: "1rem",
+            width: "auto",
+            textAlign: "center",
+          }}
+        >
+          Please Sign Up for Official Training App
         </p>
       </div>
     );
@@ -374,7 +370,6 @@ class Signup extends Component {
     let form = (
       <div className="login-form">
         {logo}
-
         <form onSubmit={this.formHandler}>
           {formElementsArray.map((x) => (
             <Input
@@ -425,12 +420,10 @@ class Signup extends Component {
         {alertContent}
         <div className="SideContent">
           <MainPage
-            logo={logoBsp}
             shelp={true}
             heading1={"Start your"}
             heading2={"learning with"}
           />
-
           {form}
         </div>
       </Layout>
