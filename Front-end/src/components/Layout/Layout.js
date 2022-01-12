@@ -24,7 +24,7 @@ const Layout = (props) => {
     return (
       <div>
         <Navbar />
-        <main style={{ background: "#00005c" }} className="Content">
+        <main style={{ background: "#15181fc" }} className="Content">
           {props.children}
         </main>
       </div>

@@ -420,7 +420,6 @@ class Signup extends Component {
         {alertContent}
         <div className="SideContent">
           <MainPage
-            logo={logoBsp}
             shelp={true}
             heading1={"Start your"}
             heading2={"learning with"}

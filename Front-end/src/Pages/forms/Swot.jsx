@@ -3,6 +3,7 @@ import { useState } from "react";
 import AuthServices from "../../ApiServices/auth.service";
 import Layout from "../../components/Layout/Layout";
 import Input from "../../components/UI/Input/FormInput";
+import "./Forms.css";
 
 const Swot = () => {
   const [formdata, setformdata] = useState({
@@ -26,10 +27,16 @@ const Swot = () => {
         style={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
           padding: "1rem",
+          alignItems: "center",
+          height: "90vh",
+          flex: 1,
+          background: "#15181fc",
         }}
       >
+        <p style={{ color: "white" }}>
+          SHNOW-SWOT analysis for your village/ward
+        </p>
         <input
           className="InputElement"
           placeholder="Village Name"
