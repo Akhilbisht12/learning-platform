@@ -3,7 +3,7 @@ exports.Sendgrid=process.env.SENDGRID_KEY;
 
 // mongo database
 exports.mongo = process.env.MONGO_DATABASE;
-
+exports.port = process.env.PORT
 
 // jwt authentication 
 exports.accessToken=process.env.ACCESS_TOKEN_SECRET;

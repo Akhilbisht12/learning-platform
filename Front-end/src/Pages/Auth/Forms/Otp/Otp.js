@@ -112,7 +112,7 @@ class Otp extends Component {
                  localStorage.setItem('ref_token',response.data.referesh_token);
                  localStorage.setItem('userId',response.data.userId);
                  localStorage.setItem('userName',response.data.username); 
-                 this.setState({redirect:'/HomePage'})
+                 this.setState({redirect:'/home/all'})
         })
             
             .catch(error=>{console.log(error.response); this.setState({loading:false});
@@ -126,14 +126,15 @@ class Otp extends Component {
         let formData ={};
         formData.token=this.state.Signup_token;
         formData.email=this.state.email;
+        formData.phone= localStorage.getItem('phone')
+        console.log(formData.phone)
     
         AuthService.otpResend(formData)
             .then(response => {console.log('Response:',response)
-            this.AlertError("Please Check Your Email, Otp has been Re-sent to your Email Address", "success");
+            this.AlertError("Please Check Your Phone, Otp has been Re-sent to your Phone", "success");
             if(response.status ===201 || response.status ===200) 
                 {localStorage.removeItem('token') 
                  localStorage.removeItem('email') 
-               
                 }
             else alert("Something went wrong")})
 

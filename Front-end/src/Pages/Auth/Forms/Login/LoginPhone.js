@@ -14,11 +14,11 @@ import Alert from "../alert";
 class LoginPhone extends Component {
   state = {
     Form: {
-      phone: {
-        placeholder: "Phone Number",
+      email: {
+        placeholder: "Enter Email address",
         value: "",
         valid: false,
-        type: "number",
+        type: "text",
         error: " ",
         msg: "",
 
@@ -126,11 +126,11 @@ class LoginPhone extends Component {
       updatedElement.msg = "valid";
     }
     // msg errors for email
-    if (inputIdentifier === "phone" && !updatedElement.valid) {
+    if (inputIdentifier === "email" && !updatedElement.valid) {
       updatedElement.error = "Invalid format";
       updatedElement.msg = "";
     }
-    if (inputIdentifier === "phone" && updatedElement.valid) {
+    if (inputIdentifier === "email" && updatedElement.valid) {
       updatedElement.error = "";
       updatedElement.msg = "valid";
     }
@@ -169,7 +169,7 @@ class LoginPhone extends Component {
         formData[formElement] = this.state.Form[formElement].value;
       }
 
-      localStorage.setItem("phone", this.state.Form["phone"].value);
+      localStorage.setItem("email", this.state.Form["email"].value);
 
       AuthService.login(formData)
         .then((response) => {
@@ -184,7 +184,7 @@ class LoginPhone extends Component {
           localStorage.setItem("userName", response.data.username);
 
           this.setState({ loading: false });
-          this.setState({ redirect: "/HomePage" });
+          this.setState({ redirect: "/home/all" });
         })
 
         .catch((error) => {
@@ -348,7 +348,7 @@ class LoginPhone extends Component {
     );
 
     return (
-      <Layout>
+      <Layout style={{backgroundColor : '#000052'}}>
         {alertContent}
         <div className="SideContent">
           <MainPage

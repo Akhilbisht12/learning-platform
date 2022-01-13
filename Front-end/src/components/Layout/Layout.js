@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import "./Layout.css";
 import Navbar from "../UI/Navigation/Navbar/Navbar";
 import { useLocation } from "react-router-dom";
-const height = "100vh";
 const Layout = (props) => {
   let locationPage = useLocation();
   if (
@@ -13,7 +12,7 @@ const Layout = (props) => {
     return (
       <div>
         <main
-          style={{ height: `${height}`, background: "#00005c" }}
+          style={{ background: "#00005c" }}
           className="Content"
         >
           {props.children}

@@ -9,7 +9,7 @@ class AuthServices {
   // }
 
   register(data) {
-    return axios.post("/signup_phone", data);
+    return axios.post("/signup", data);
   }
 
   otp(data) {
@@ -21,7 +21,7 @@ class AuthServices {
   }
 
   login(data) {
-    return axios.post("/login_phone", data);
+    return axios.post("/login", data);
   }
 
   VerifyEmail(data) {

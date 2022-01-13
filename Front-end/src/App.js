@@ -21,6 +21,7 @@ import SignupBSP from "./Pages/Auth/Forms/Signup/SignupBSP";
 import SignUpwithPhone from "./Pages/Auth/Forms/Signup/SignUpwithPhone";
 import LoginPhone from './Pages/Auth/Forms/Login/LoginPhone'
 import Swot from "./Pages/forms/Swot";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 class App extends Component {
   render() {
     return (
@@ -35,6 +36,7 @@ class App extends Component {
           <Route path="/ResetPassword" component={ResetPassword} />
           <Route path="/signup" component={SignupBSP} />
 
+          <Route path='/dashboard' exact component={Dashboard}/>
           <Route
             path="/home/:CourseName"
             exact
@@ -79,7 +81,8 @@ class App extends Component {
 
           <Route path="/chat" component={Chat} />
           {/* <Redirect to="/signupOtp" /> */}
-          <Redirect to="/home/all" />
+          {localStorage.getItem('user')?<Redirect to='/dashboard'/>:<Redirect to='/login'/>}
+          {/* <Redirect to="/home/all" /> */}
         </Switch>
       </BrowserRouter>
     );

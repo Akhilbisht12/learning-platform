@@ -3,7 +3,6 @@ import { useState } from "react";
 import AuthServices from "../../ApiServices/auth.service";
 import Layout from "../../components/Layout/Layout";
 import Input from "../../components/UI/Input/FormInput";
-import "./Forms.css";
 
 const Swot = () => {
   const [formdata, setformdata] = useState({
