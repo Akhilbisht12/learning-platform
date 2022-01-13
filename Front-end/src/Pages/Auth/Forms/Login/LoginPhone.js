@@ -270,18 +270,8 @@ class LoginPhone extends Component {
           alignItems: "center",
           padding: "1rem",
         }}
-      >
-        <img className="logo-shelp" src={logoBhim} alt="logo" />
-        <p
-          style={{
-            fontSize: "2rem",
-            fontWeight: "bolder",
-            color: "white",
-            padding: "1rem",
-          }}
-        >
-          बहुजन समाज पार्टी
-        </p>
+      >        
+        <img src={logoBhim} width={100} style={{ borderRadius: "50%" }} />
         <p
           style={{
             color: "white",
@@ -290,7 +280,7 @@ class LoginPhone extends Component {
             textAlign: "center",
           }}
         >
-          Please Login For Official Training App
+          BHIM BATA APP USER REGISTRATION
         </p>
       </div>
     );
@@ -313,9 +303,9 @@ class LoginPhone extends Component {
               changed={(event) => this.inputchangeHandler(event, x.id)}
             />
           ))}
-          <Link to="/forgotpasswordemail">
+          {/* <Link to="/forgotpasswordemail">
             <p className="forgot-password"> Forgot Password?</p>
-          </Link>
+          </Link> */}
 
           {LoginSumbitButton}
           <p className="account-login">

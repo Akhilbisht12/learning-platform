@@ -249,5 +249,4 @@ class Otp extends Component {
     );
   }
 }
-
-export default Otp;
+   export default Otp;

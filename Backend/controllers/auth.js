@@ -352,87 +352,92 @@ exports.signup = async (req, res) => {
 };
 
 exports.otpVerification = (req, res, next) => {
-  const receivedOtp = req.body.otp;
-  const email = req.body.email;
+  try {
+    const receivedOtp = req.body.otp;
+    const email = req.body.email;
 
-  // validation
-  console.log(receivedOtp, email);
+    // validation
+    console.log(receivedOtp, email);
 
-  Otp.findOne({ email: email })
-    .then((user) => {
-      if (!user) {
-        const error = new Error("Validation failed ,this user does not exist"); // when user not found
-        error.statusCode = 403;
-        error.data = {
-          value: receivedOtp,
-          message: "Invalid email",
-          param: "otp",
-          location: "otpVerification",
-        };
-        res.status(422).json({ message: error.data });
+    Otp.findOne({ email: email })
+      .then((user) => {
+        if (!user) {
+          const error = new Error(
+            "Validation failed ,this user does not exist"
+          ); // when user not found
+          error.statusCode = 403;
+          error.data = {
+            value: receivedOtp,
+            message: "Invalid email",
+            param: "otp",
+            location: "otpVerification",
+          };
+          res.status(422).json({ message: error.data });
+          throw error;
+        }
 
-        throw error;
-      }
+        if (user.otp != receivedOtp) {
+          const error = new Error("Wrong Otp entered");
+          error.statusCode = 401;
+          res.status(401).json({ message: "wrong otp entered " });
+          error.data = {
+            value: receivedOtp,
+            message: "Otp incorrect",
+            param: "otp",
+            location: "otp",
+          };
+          throw error;
+        } else {
+          //  correct OTP
+          User.findOne({ email: email }).then((user) => {
+            user.isverified = true;
 
-      if (user.otp != receivedOtp) {
-        const error = new Error("Wrong Otp entered");
-        error.statusCode = 401;
-        res.status(401).json({ message: "wrong otp entered " });
-        error.data = {
-          value: receivedOtp,
-          message: "Otp incorrect",
-          param: "otp",
-          location: "otp",
-        };
-        throw error;
-      } else {
-        //  correct OTP
-        User.findOne({ email: email }).then((user) => {
-          user.isverified = true;
+            const access_token = jwt.sign(
+              { email: email, userId: user._id },
+              api_key.accessToken,
+              {
+                algorithm: "HS256",
+                expiresIn: api_key.accessTokenLife,
+              }
+            );
+            const referesh_token = jwt.sign(
+              { email: email },
+              api_key.refereshToken,
+              {
+                algorithm: "HS256",
+                expiresIn: api_key.refereshTokenLife,
+              }
+            );
 
-          const access_token = jwt.sign(
-            { email: email, userId: user._id },
-            api_key.accessToken,
-            {
-              algorithm: "HS256",
-              expiresIn: api_key.accessTokenLife,
-            }
-          );
-          const referesh_token = jwt.sign(
-            { email: email },
-            api_key.refereshToken,
-            {
-              algorithm: "HS256",
-              expiresIn: api_key.refereshTokenLife,
-            }
-          );
-
-          user.save((result) => {
-            return res.status(200).json({
-              message: "otp entered is correct, user successfully added",
-              access_token: access_token,
-              referesh_token: referesh_token,
-              userId: user._id.toString(),
-              username: user.name,
+            user.save((result) => {
+              res.status(200).json({
+                message: "otp entered is correct, user successfully added",
+                access_token: access_token,
+                referesh_token: referesh_token,
+                userId: user._id.toString(),
+                username: user.name,
+              });
             });
           });
-        });
-      }
-    })
-    .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
-    });
+        }
+      })
+      .catch((err) => {
+        if (!err.statusCode) {
+          err.statusCode = 500;
+        }
+        next(err);
+      });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // to re send the otp to user
 exports.resendOtp = (req, res, next) => {
   const email = req.body.email;
   const received_otp = req.body.otp;
-  const phone = req.body.phone
-  console.log(phone)
+  const phone = req.body.phone;
+  console.log(phone);
   let otp = null;
 
   Otp.findOne({ email: email })
@@ -457,7 +462,7 @@ exports.resendOtp = (req, res, next) => {
       res.status(201).json({ message: "OTP sent to your Email" });
     })
     .then(() => {
-      OTPHandler(otp, phone, res, email)
+      OTPHandler(otp, phone, res, email);
       // transporter.sendMail({
       //   to: email,
       //   from: "ayush1911052@akgec.ac.in",
@@ -482,7 +487,7 @@ exports.login = (req, res, next) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
-    console.log(email, password)
+    console.log(email, password);
     const errors = validationResult(req);
     let otp = null;
     // if (!errors.isEmpty()) {
@@ -494,7 +499,7 @@ exports.login = (req, res, next) => {
     //   throw error;
     // }
 
-    User.findOne({email : email}).then((user) => {
+    User.findOne({ email: email }).then((user) => {
       console.log(user);
       if (user.isverified == false) {
         console.log("user isn't verified");
