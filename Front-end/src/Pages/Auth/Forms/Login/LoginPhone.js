@@ -317,9 +317,9 @@ class LoginPhone extends Component {
               changed={(event) => this.inputchangeHandler(event, x.id)}
             />
           ))}
-          {/* <Link to="/forgotpasswordemail">
+          <Link to="/forgotpasswordemail">
             <p className="forgot-password"> Forgot Password?</p>
-          </Link> */}
+          </Link>
 
           {LoginSumbitButton}
           <p className="account-login">

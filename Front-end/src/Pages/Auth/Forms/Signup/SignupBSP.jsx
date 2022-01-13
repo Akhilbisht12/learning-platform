@@ -339,11 +339,7 @@ class Signup extends Component {
           padding: "1rem",
         }}
       >
-        <img
-          src="https://www.babushahi.com/pae2017/parties/party_logo/bsp.png"
-          width={100}
-          style={{ borderRadius: "50%" }}
-        />
+        <img src={logoBsp} width={100} style={{ borderRadius: "50%" }} />
         <p
           style={{
             fontSize: "2rem",
