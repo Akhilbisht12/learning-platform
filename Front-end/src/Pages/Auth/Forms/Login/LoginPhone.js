@@ -10,6 +10,7 @@ import Google_logo from "../../../../components/UI/Logo/google";
 import GoogleLogin from "react-google-login";
 import SumbitButton from "../../../../components/UI/Buttons/SumbitButton";
 import Alert from "../alert";
+import logoBhim from "../../../../assets/Images/bhim.png";
 
 class LoginPhone extends Component {
   state = {
@@ -177,14 +178,13 @@ class LoginPhone extends Component {
 
           this.AlertError("Successfully Logged in", "success");
           localStorage.setItem("email", response.data.email);
-
           localStorage.setItem("user", response.data.access_token);
           localStorage.setItem("ref_token", response.data.referesh_token);
           localStorage.setItem("userId", response.data.userId);
           localStorage.setItem("userName", response.data.username);
 
           this.setState({ loading: false });
-          this.setState({ redirect: "/home/all" });
+          this.setState({ redirect: "/dashboard" });
         })
 
         .catch((error) => {
@@ -271,11 +271,7 @@ class LoginPhone extends Component {
           padding: "1rem",
         }}
       >
-        <img
-          src="https://www.babushahi.com/pae2017/parties/party_logo/bsp.png"
-          width={100}
-          style={{ borderRadius: "50%" }}
-        />
+        <img className="logo-shelp" src={logoBhim} alt="logo" />
         <p
           style={{
             fontSize: "2rem",
@@ -348,7 +344,7 @@ class LoginPhone extends Component {
     );
 
     return (
-      <Layout style={{backgroundColor : '#000052'}}>
+      <Layout style={{ backgroundColor: "#000052" }}>
         {alertContent}
         <div className="SideContent">
           <MainPage

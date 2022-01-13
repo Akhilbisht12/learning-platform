@@ -7,14 +7,12 @@ const Layout = (props) => {
   let locationPage = useLocation();
   if (
     locationPage.pathname === "/login" ||
-    locationPage.pathname === "/signup"
+    locationPage.pathname === "/signup" ||
+    locationPage.pathname === "/signup/otp"
   ) {
     return (
       <div>
-        <main
-          style={{ background: "#00005c" }}
-          className="Content"
-        >
+        <main style={{ background: "#00005c" }} className="Content">
           {props.children}
         </main>
       </div>
@@ -23,7 +21,7 @@ const Layout = (props) => {
     return (
       <div>
         <Navbar />
-        <main style={{ background: "#15181fc" }} className="Content">
+        <main style={{ background: "white" }} className="Content">
           {props.children}
         </main>
       </div>
