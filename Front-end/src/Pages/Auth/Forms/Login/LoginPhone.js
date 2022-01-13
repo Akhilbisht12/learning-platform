@@ -10,7 +10,7 @@ import Google_logo from "../../../../components/UI/Logo/google";
 import GoogleLogin from "react-google-login";
 import SumbitButton from "../../../../components/UI/Buttons/SumbitButton";
 import Alert from "../alert";
-
+import logoBhim from "../../../../assets/Images/bhim.png";
 class LoginPhone extends Component {
   state = {
     Form: {
@@ -271,21 +271,7 @@ class LoginPhone extends Component {
           padding: "1rem",
         }}
       >
-        <img
-          src="https://www.babushahi.com/pae2017/parties/party_logo/bsp.png"
-          width={100}
-          style={{ borderRadius: "50%" }}
-        />
-        <p
-          style={{
-            fontSize: "2rem",
-            fontWeight: "bolder",
-            color: "white",
-            padding: "1rem",
-          }}
-        >
-          बहुजन समाज पार्टी
-        </p>
+        <img src={logoBhim} width={100} style={{ borderRadius: "50%" }} />
         <p
           style={{
             color: "white",
@@ -294,7 +280,7 @@ class LoginPhone extends Component {
             textAlign: "center",
           }}
         >
-          Please Login For Official Training App
+          BHIM BATA APP USER REGISTRATION
         </p>
       </div>
     );
@@ -317,9 +303,9 @@ class LoginPhone extends Component {
               changed={(event) => this.inputchangeHandler(event, x.id)}
             />
           ))}
-          <Link to="/forgotpasswordemail">
+          {/* <Link to="/forgotpasswordemail">
             <p className="forgot-password"> Forgot Password?</p>
-          </Link>
+          </Link> */}
 
           {LoginSumbitButton}
           <p className="account-login">
@@ -348,7 +334,7 @@ class LoginPhone extends Component {
     );
 
     return (
-      <Layout style={{backgroundColor : '#000052'}}>
+      <Layout style={{ backgroundColor: "#000052" }}>
         {alertContent}
         <div className="SideContent">
           <MainPage
