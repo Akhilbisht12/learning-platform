@@ -19,8 +19,9 @@ import Stripe from "./Pages/payment/StripeContainer";
 import Chat from "./Pages/Chat/Chat";
 import SignupBSP from "./Pages/Auth/Forms/Signup/SignupBSP";
 import SignUpwithPhone from "./Pages/Auth/Forms/Signup/SignUpwithPhone";
-import LoginPhone from './Pages/Auth/Forms/Login/LoginPhone'
+import LoginPhone from "./Pages/Auth/Forms/Login/LoginPhone";
 import Swot from "./Pages/forms/Swot";
+import Drawer from "./components/UI/Navigation/Navbar/Drawer";
 class App extends Component {
   render() {
     return (
@@ -65,7 +66,8 @@ class App extends Component {
               <Stripe key={props.location.pathname} {...props} />
             )}
           />
-          <Route path='/swot' component={Swot} />
+          <Route path="/drawer" component={Drawer} />
+          <Route path="/swot" component={Swot} />
           <Route path="/Teacher" component={TeacherPage} />
           <Route
             path="/TeacherVideos"

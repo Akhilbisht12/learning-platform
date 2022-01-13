@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import AuthServices from "../../ApiServices/auth.service";
 import Layout from "../../components/Layout/Layout";
-import Input from "../../components/UI/Input/FormInput";
 import "./Forms.css";
 
 const Swot = () => {
@@ -29,55 +28,66 @@ const Swot = () => {
           flexDirection: "column",
           padding: "1rem",
           alignItems: "center",
-          height: "90vh",
           flex: 1,
           background: "#15181fc",
         }}
       >
-        <p style={{ color: "white" }}>
-          SHNOW-SWOT analysis for your village/ward
-        </p>
-        <input
-          className="InputElement"
-          placeholder="Village Name"
-          value={formdata.village}
-          onChange={(e) =>
-            setformdata({ ...formdata, village: e.target.value })
-          }
-        />
-        <input
-          className="InputElement"
-          placeholder="Village Name"
-          value={formdata.strengths}
-          onChange={(e) =>
-            setformdata({ ...formdata, strengths: e.target.value })
-          }
-        />
-        <input
-          className="InputElement"
-          placeholder="Village Name"
-          value={formdata.weaknesses}
-          onChange={(e) =>
-            setformdata({ ...formdata, weaknesses: e.target.value })
-          }
-        />
-        <input
-          className="InputElement"
-          placeholder="Village Name"
-          value={formdata.opportunities}
-          onChange={(e) =>
-            setformdata({ ...formdata, opportunities: e.target.value })
-          }
-        />
-        <input
-          className="InputElement"
-          placeholder="Village Name"
-          value={formdata.threats}
-          onChange={(e) =>
-            setformdata({ ...formdata, threats: e.target.value })
-          }
-        />
-        <button onClick={handleswotsubmit}>submit</button>
+        <h4 className="heading">SHNOW-SWOT analysis for your village/ward</h4>
+        <div className="inputs">
+          <label htmlFor="village">Village/ward</label>
+          <input
+            name="village"
+            className="inputElement"
+            value={formdata.village}
+            onChange={(e) =>
+              setformdata({ ...formdata, village: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputs">
+          <label htmlFor="village">Strengths</label>
+          <input
+            className="inputElement"
+            value={formdata.strengths}
+            onChange={(e) =>
+              setformdata({ ...formdata, strengths: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputs">
+          <label htmlFor="village">Weaknesses</label>
+          <input
+            className="inputElement"
+            value={formdata.weaknesses}
+            onChange={(e) =>
+              setformdata({ ...formdata, weaknesses: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputs">
+          <label htmlFor="village">Opportunities</label>
+          <input
+            className="inputElement"
+            value={formdata.opportunities}
+            onChange={(e) =>
+              setformdata({ ...formdata, opportunities: e.target.value })
+            }
+          />
+        </div>
+        <div className="inputs">
+          <label htmlFor="village">Threats</label>
+          <input
+            className="inputElement"
+            value={formdata.threats}
+            onChange={(e) =>
+              setformdata({ ...formdata, threats: e.target.value })
+            }
+          />
+        </div>
+
+        <button className="formBtn" onClick={handleswotsubmit}>
+          Submit
+        </button>
       </main>
     </Layout>
   );
