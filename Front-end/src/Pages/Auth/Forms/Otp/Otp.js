@@ -98,7 +98,7 @@ class Otp extends Component {
         localStorage.setItem("ref_token", response.data.referesh_token);
         localStorage.setItem("userId", response.data.userId);
         localStorage.setItem("userName", response.data.username);
-        this.setState({ redirect: "/home/all" });
+        this.setState({ redirect: "/dashboard" });
       })
 
       .catch((error) => {
@@ -115,7 +115,6 @@ class Otp extends Component {
     formData.token = this.state.Signup_token;
     formData.email = this.state.email;
     formData.phone = localStorage.getItem("phone");
-    console.log(formData.phone);
 
     AuthService.otpResend(formData)
       .then((response) => {
@@ -188,10 +187,10 @@ class Otp extends Component {
               changed={(event) => this.inputchangeHandler(event, x.id)}
             />
           ))}
-          {/* <p className="forgot-password" onClick={this.resendotp}>
+          <p className="forgot-password" onClick={this.resendotp}>
             {" "}
             Resend Otp?
-          </p> */}
+          </p>
           {SigninSumbitButton}
           <p className="account-login">
             <Link to="/login"> Already have an account? Login</Link>{" "}
