@@ -41,3 +41,20 @@ label {
   font: normal normal normal 16px/19px Gilroy;
   border: none;
 }
+
+.main__from-wrapper {
+  background-color: #14181e;
+  height: 90vh;
+}
+
+.img__box {
+  background-image: url("https://res.cloudinary.com/glide/image/fetch/f_auto,w_375,h_375,c_lfill/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2Fp8iaR7iXrrou6MV22647%2Fpub%2FA5AI4fcYoAultrN9g0tz.png");
+  height: 50vh;
+  background-size: cover;
+}
+.btn__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+}

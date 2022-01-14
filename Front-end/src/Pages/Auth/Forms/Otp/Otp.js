@@ -8,6 +8,7 @@ import MainPage from "../../../../components/UI/MainPage/MainPage";
 import SpinnerButton from "../../../../components/UI/Spinners/SpinnerButton";
 import SumbitButton from "../../../../components/UI/Buttons/SumbitButton";
 import Layout from "../../../../components/Layout/Layout";
+import logoBhim from "../../../../assets/Images/bhim.png";
 
 class Otp extends Component {
   state = {
@@ -98,7 +99,7 @@ class Otp extends Component {
         localStorage.setItem("ref_token", response.data.referesh_token);
         localStorage.setItem("userId", response.data.userId);
         localStorage.setItem("userName", response.data.username);
-        this.setState({ redirect: "/home/all" });
+        this.setState({ redirect: "/dashboard" });
       })
 
       .catch((error) => {
@@ -171,9 +172,43 @@ class Otp extends Component {
     if (this.state.loading) {
       SigninSumbitButton = <SpinnerButton spinnerclass={"Sumbit-btn"} />;
     }
+    let logo = (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "1rem",
+        }}
+      >
+        <img className="logo-shelp" src={logoBhim} alt="logo" />
+        <p
+          style={{
+            fontSize: "2rem",
+            fontWeight: "bolder",
+            color: "white",
+            padding: "1rem",
+          }}
+        >
+          बहुजन समाज पार्टी
+        </p>
+        <p
+          style={{
+            color: "white",
+            fontSize: "1rem",
+            width: "auto",
+            textAlign: "center",
+          }}
+        >
+          Please Enter Verification Code
+        </p>
+      </div>
+    );
 
     let form = (
       <div className="login-form-otp">
+        {logo}
         <form onSubmit={this.formHandler}>
           {formElementsArray.map((x) => (
             <Input
@@ -188,14 +223,11 @@ class Otp extends Component {
               changed={(event) => this.inputchangeHandler(event, x.id)}
             />
           ))}
-          {/* <p className="forgot-password" onClick={this.resendotp}>
+          <p className="forgot-password" onClick={this.resendotp}>
             {" "}
             Resend Otp?
-          </p> */}
-          {SigninSumbitButton}
-          <p className="account-login">
-            <Link to="/login"> Already have an account? Login</Link>{" "}
           </p>
+          {SigninSumbitButton}
           <hr />
         </form>
       </div>
@@ -217,5 +249,4 @@ class Otp extends Component {
     );
   }
 }
-
-export default Otp;
+   export default Otp;

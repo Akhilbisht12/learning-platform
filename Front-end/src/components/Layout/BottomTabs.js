@@ -6,27 +6,27 @@ const BottomTabs = () => {
   const history = useHistory();
 
   return (
-    <div className="fixed-bottom bg-white row p-2">
+    <div className="fixed-bottom row p-2 glass">
       <div
         onClick={() => history.push("/dashboard")}
         className="col-4 d-flex align-items-center flex-column"
       >
-        <FaDesktop size={25} />
-        <div>Dashboard</div>
+        <FaDesktop size={25} color="white" />
+        <div className="labels">Dashboard</div>
       </div>
       <div
         onClick={() => history.push("/home/all")}
         className="col-4 d-flex align-items-center flex-column"
       >
-        <FaClipboardList size={25} />
-        <div>Modules</div>
+        <FaClipboardList size={25} color="white" />
+        <div className="labels">Modules</div>
       </div>
       <div
         onClick={() => history.push("/forms")}
         className="col-4 d-flex align-items-center flex-column"
       >
-        <FaBookOpen size={25} />
-        <div>Forms</div>
+        <FaBookOpen size={25} color="white" />
+        <div className="labels">Forms</div>
       </div>
     </div>
   );

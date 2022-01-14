@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
-import { NavLink, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
 import Logo from "../../Logo/Logo";
 import AuthServices from "../../../../ApiServices/auth.service";
 import { GoogleLogout } from "react-google-login";
@@ -24,6 +24,19 @@ const Navbar = () => {
   const [drawer, setdrawer] = useState(true);
   // const [drawerClose, setdrawerClose] = useState(false);
 
+  let locationPage = useLocation();
+  let screenName = "Your Dashbaord";
+
+  if (locationPage.pathname === "/home/all") {
+    screenName = "Modules";
+  } else if (locationPage.pathname === "/forms") {
+    screenName = "Forms";
+  } else if (locationPage.pathname === "/swot") {
+    screenName = "SWOT Analysis";
+  } else if (locationPage.pathname == "/influencer") {
+    screenName = "Neutral Influencer";
+  }
+
   const handleMenu = () => {
     setdrawer(false);
   };
@@ -45,13 +58,24 @@ const Navbar = () => {
     };
   }, []);
 
+  const logout = () => {
+    setLogin(false);
+    AuthServices.logout();
+    console.log("logout called");
+    history.push("/login");
+  };
+
+  const userName = localStorage.getItem("userName");
+  const userEmail = localStorage.getItem("email");
+  console.log(`User: ${userName} and ${userEmail}`);
+
   const Drawer = (
     <div className="main__drawer-wrapper">
       <div className="profile__details">
         <div className="details">
           <img className="user__img" src={avatar} alt="" />
-          <p className="user__name">User ABC</p>
-          <p className="user__email">abc@email.com</p>
+          <p className="user__name">{userName}</p>
+          <p className="user__email">{userEmail}</p>
         </div>
         <div className="close">
           <FaWindowClose onClick={closeDrawer} size={25} color="white" />
@@ -59,18 +83,24 @@ const Navbar = () => {
       </div>
       <div className="drawer__navigations">
         <ul className="nav__menu">
-          <li className="nav__items">
-            <FaDesktop size={25} color="black" />
-            <span> Your Dashboard</span>
-          </li>
-          <li className="nav__items">
-            <FaClipboardList size={25} color="black" />
-            <span> Modules</span>
-          </li>
-          <li className="nav__items">
-            <FaBookOpen size={25} color="black" />
-            <span> Your Forms</span>
-          </li>
+          <Link to="/dashboard">
+            <li className="nav__items">
+              <FaDesktop size={25} color="black" />
+              <span> Your Dashboard</span>
+            </li>
+          </Link>
+          <Link to="/home/all">
+            <li className="nav__items">
+              <FaClipboardList size={25} color="black" />
+              <span> Modules</span>
+            </li>
+          </Link>
+          <Link to="/forms">
+            <li className="nav__items">
+              <FaBookOpen size={25} color="black" />
+              <span> Your Forms</span>
+            </li>
+          </Link>
           <li className="nav__items">
             <FaAward size={25} color="black" />
             <span> Your Badges</span>
@@ -83,7 +113,7 @@ const Navbar = () => {
             <FaPaperPlane size={25} color="black" />
             <span> Why RSP?</span>
           </li>
-          <li className="nav__items">
+          <li className="nav__items" onClick={logout}>
             <FaSignOutAlt size={25} color="black" />
             <span> Sign Out</span>
           </li>
@@ -91,13 +121,6 @@ const Navbar = () => {
       </div>
     </div>
   );
-
-  const logout = () => {
-    setLogin(false);
-    AuthServices.logout();
-    console.log("logout called");
-    history.push("/login");
-  };
 
   let ToolBar = (
     <nav className=" navbar navbar-expand-lg sticky-top ">
@@ -107,7 +130,7 @@ const Navbar = () => {
         </button>
       </div>
       <div className="screen__name">
-        <h5>Your Dashboard</h5>
+        <h5>{screenName}</h5>
       </div>
       <div className="logo">
         <Logo />
@@ -138,66 +161,66 @@ const Navbar = () => {
     </ul>
   );
 
-  let loggedIn = (
-    <ul className="navbar-nav ml-auto">
-      <li
-        className="nav-item"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="Create Your Course"
-      >
-        <NavLink
-          to="/teacherhome"
-          activeClassName="teacherActive"
-          className="nav-link teachLink"
-        >
-          Teach on Shelp
-        </NavLink>
-      </li>
+  //   let loggedIn = (
+  //     <ul className="navbar-nav ml-auto">
+  //       <li
+  //         className="nav-item"
+  //         data-toggle="tooltip"
+  //         data-placement="top"
+  //         title="Create Your Course"
+  //       >
+  //         <NavLink
+  //           to="/teacherhome"
+  //           activeClassName="teacherActive"
+  //           className="nav-link teachLink"
+  //         >
+  //           Teach on Shelp
+  //         </NavLink>
+  //       </li>
+  // {/*
+  //       <li className="nav-item">
+  //         <NavLink to="/Cart" className="nav-link ">
+  //           <i
+  //             data-toggle="tooltip"
+  //             data-placement="top"
+  //             title="Bookmarked Courses"
+  //             className="fa fa-book"
+  //             aria-hidden="true"
+  //           >
+  //             <span id="bookmarkNav"> Bookmark</span>
+  //           </i>
+  //         </NavLink>
+  //       </li> */}
 
-      <li className="nav-item">
-        <NavLink to="/Cart" className="nav-link ">
-          <i
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Bookmarked Courses"
-            className="fa fa-book"
-            aria-hidden="true"
-          >
-            <span id="bookmarkNav"> Bookmark</span>
-          </i>
-        </NavLink>
-      </li>
-
-      <li className="nav-item">
-        <GoogleLogout
-          clientId={process.env.REACT_APP_GOOGLE_API_KEY}
-          buttonText="Logout"
-          render={(renderProps) => (
-            <NavLink
-              to="/login"
-              onClick={logout}
-              disabled={renderProps.disabled}
-              className="nav-link logoutlink"
-            >
-              {" "}
-              Logout{" "}
-            </NavLink>
-          )}
-          onLogoutSuccess={logout}
-        ></GoogleLogout>
-      </li>
-    </ul>
-  );
+  //       <li className="nav-item">
+  //         <GoogleLogout
+  //           clientId={process.env.REACT_APP_GOOGLE_API_KEY}
+  //           buttonText="Logout"
+  //           render={(renderProps) => (
+  //             <NavLink
+  //               to="/login"
+  //               onClick={logout}
+  //               disabled={renderProps.disabled}
+  //               className="nav-link logoutlink"
+  //             >
+  //               {" "}
+  //               Logout{" "}
+  //             </NavLink>
+  //           )}
+  //           onLogoutSuccess={logout}
+  //         ></GoogleLogout>
+  //       </li>
+  //     </ul>
+  //   );
 
   return (
     <div>
       <div style={{ display: drawer ? "" : "none" }}>{ToolBar}</div>
       <div
-        className="fixed-top"
+        className="fixed-top drawer-box"
         style={{
           display: !drawer ? "" : "none",
-          backdropFilter:"blur(2px)"
+          backdropFilter: "blur(2px)",
         }}
       >
         {Drawer}
