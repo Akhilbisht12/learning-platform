@@ -692,8 +692,27 @@ class Signup extends Component {
             {SigninSumbitButton}
           </div>
           <div style={{ display: "flex" }}>
-            <div style={{ display: this.state.step === 3 ? "none" : "block" }}>
+            <button
+              style={{
+                display: this.state.step === 1 ? "none" : "block",
+                border: "none",
+                borderRadius: "5px",
+                background: "white",
+                marginTop: "1rem",
+              }}
+              className="Submit-btn"
+              onClick={() => (this.state.step = this.state.step - 1)}
+            >
+              Prev
+            </button>
+            <div
+              style={{
+                display: this.state.step === 3 ? "none" : "block",
+                margin: "0 1rem",
+              }}
+            >
               <button
+                style={{ border: "none", borderRadius: "5px" }}
                 className="Sumbit-btn"
                 onClick={() =>
                   this.OverallValidity
@@ -704,16 +723,9 @@ class Signup extends Component {
                       )
                 }
               >
-                next
+                Next
               </button>
             </div>
-            <button
-              style={{ display: this.state.step === 1 ? "none" : "block" }}
-              className="Submit-btn"
-              onClick={() => (this.state.step = this.state.step - 1)}
-            >
-              prev
-            </button>
           </div>
 
           <p className="account-login">
@@ -743,7 +755,7 @@ class Signup extends Component {
     );
 
     return (
-      <Layout style={{ background: "#00005c" }}>
+      <Layout>
         {alertContent}
         <div className="SideContent">
           <MainPage

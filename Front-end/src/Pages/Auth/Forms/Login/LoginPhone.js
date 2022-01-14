@@ -11,6 +11,7 @@ import GoogleLogin from "react-google-login";
 import SumbitButton from "../../../../components/UI/Buttons/SumbitButton";
 import Alert from "../alert";
 import logoBhim from "../../../../assets/Images/bhim.png";
+
 class LoginPhone extends Component {
   state = {
     Form: {
@@ -177,14 +178,13 @@ class LoginPhone extends Component {
 
           this.AlertError("Successfully Logged in", "success");
           localStorage.setItem("email", response.data.email);
-
           localStorage.setItem("user", response.data.access_token);
           localStorage.setItem("ref_token", response.data.referesh_token);
           localStorage.setItem("userId", response.data.userId);
           localStorage.setItem("userName", response.data.username);
 
           this.setState({ loading: false });
-          this.setState({ redirect: "/home/all" });
+          this.setState({ redirect: "/dashboard" });
         })
 
         .catch((error) => {
@@ -270,7 +270,7 @@ class LoginPhone extends Component {
           alignItems: "center",
           padding: "1rem",
         }}
-      >
+      >        
         <img src={logoBhim} width={100} style={{ borderRadius: "50%" }} />
         <p
           style={{
