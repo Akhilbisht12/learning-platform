@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import AuthServices from "../../ApiServices/auth.service";
 import Layout from "../../components/Layout/Layout";
+import BottomTabs from "../../components/Layout/BottomTabs";
 import "./Forms.css";
 
 const Swot = () => {
@@ -89,6 +90,7 @@ const Swot = () => {
           Submit
         </button>
       </main>
+      <BottomTabs />
     </Layout>
   );
 };

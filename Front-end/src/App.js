@@ -22,6 +22,8 @@ import SignUpwithPhone from "./Pages/Auth/Forms/Signup/SignUpwithPhone";
 import LoginPhone from "./Pages/Auth/Forms/Login/LoginPhone";
 import Swot from "./Pages/forms/Swot";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import FormPage from "./Pages/forms/FormPage";
+import Influencer from "./Pages/forms/Influencer";
 class App extends Component {
   render() {
     return (
@@ -35,8 +37,9 @@ class App extends Component {
           <Route path="/ForgotPasswordotp" component={ForgotPasswordotp} />
           <Route path="/ResetPassword" component={ResetPassword} />
           <Route path="/signup" component={SignupBSP} />
+          <Route path="/forms" component={FormPage} />
 
-          <Route path='/dashboard' exact component={Dashboard}/>
+          <Route path="/dashboard" exact component={Dashboard} />
           <Route
             path="/home/:CourseName"
             exact
@@ -68,6 +71,7 @@ class App extends Component {
             )}
           />
           <Route path="/swot" component={Swot} />
+          <Route path="/influencer" component={Influencer} />
           <Route path="/Teacher" component={TeacherPage} />
           <Route
             path="/TeacherVideos"
@@ -81,7 +85,11 @@ class App extends Component {
 
           <Route path="/chat" component={Chat} />
           {/* <Redirect to="/signupOtp" /> */}
-          {localStorage.getItem('user')?<Redirect to='/dashboard'/>:<Redirect to='/login'/>}
+          {localStorage.getItem("user") ? (
+            <Redirect to="/dashboard" />
+          ) : (
+            <Redirect to="/login" />
+          )}
           {/* <Redirect to="/home/all" /> */}
         </Switch>
       </BrowserRouter>

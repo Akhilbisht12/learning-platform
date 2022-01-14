@@ -1,4 +1,14 @@
 .Content {
   padding-top: 40px;
   min-height: 100vh;
+  height: auto;
+}
+.labels {
+  color: white;
+  letter-spacing: 1.1;
+}
+.glass {
+  backdrop-filter: blur(6px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  background-color: rgba(17, 25, 40, 0.75);
 }

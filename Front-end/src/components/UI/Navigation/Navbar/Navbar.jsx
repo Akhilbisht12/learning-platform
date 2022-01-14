@@ -29,8 +29,12 @@ const Navbar = () => {
 
   if (locationPage.pathname === "/home/all") {
     screenName = "Modules";
-  } else if (locationPage.pathname === "/swot") {
+  } else if (locationPage.pathname === "/forms") {
     screenName = "Forms";
+  } else if (locationPage.pathname === "/swot") {
+    screenName = "SWOT Analysis";
+  } else if (locationPage.pathname == "/influencer") {
+    screenName = "Neutral Influencer";
   }
 
   const handleMenu = () => {
@@ -61,9 +65,9 @@ const Navbar = () => {
     history.push("/login");
   };
 
-  let userName = localStorage.getItem("userName");
-  let userEmail = localStorage.getItem("email");
-  console.log(`User Data Is : ${userEmail}`);
+  const userName = localStorage.getItem("userName");
+  const userEmail = localStorage.getItem("email");
+  console.log(`User: ${userName} and ${userEmail}`);
 
   const Drawer = (
     <div className="main__drawer-wrapper">
@@ -91,7 +95,7 @@ const Navbar = () => {
               <span> Modules</span>
             </li>
           </Link>
-          <Link to="/swot">
+          <Link to="/forms">
             <li className="nav__items">
               <FaBookOpen size={25} color="black" />
               <span> Your Forms</span>
@@ -157,63 +161,63 @@ const Navbar = () => {
     </ul>
   );
 
-  let loggedIn = (
-    <ul className="navbar-nav ml-auto">
-      <li
-        className="nav-item"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="Create Your Course"
-      >
-        <NavLink
-          to="/teacherhome"
-          activeClassName="teacherActive"
-          className="nav-link teachLink"
-        >
-          Teach on Shelp
-        </NavLink>
-      </li>
+  //   let loggedIn = (
+  //     <ul className="navbar-nav ml-auto">
+  //       <li
+  //         className="nav-item"
+  //         data-toggle="tooltip"
+  //         data-placement="top"
+  //         title="Create Your Course"
+  //       >
+  //         <NavLink
+  //           to="/teacherhome"
+  //           activeClassName="teacherActive"
+  //           className="nav-link teachLink"
+  //         >
+  //           Teach on Shelp
+  //         </NavLink>
+  //       </li>
+  // {/*
+  //       <li className="nav-item">
+  //         <NavLink to="/Cart" className="nav-link ">
+  //           <i
+  //             data-toggle="tooltip"
+  //             data-placement="top"
+  //             title="Bookmarked Courses"
+  //             className="fa fa-book"
+  //             aria-hidden="true"
+  //           >
+  //             <span id="bookmarkNav"> Bookmark</span>
+  //           </i>
+  //         </NavLink>
+  //       </li> */}
 
-      <li className="nav-item">
-        <NavLink to="/Cart" className="nav-link ">
-          <i
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Bookmarked Courses"
-            className="fa fa-book"
-            aria-hidden="true"
-          >
-            <span id="bookmarkNav"> Bookmark</span>
-          </i>
-        </NavLink>
-      </li>
-
-      <li className="nav-item">
-        <GoogleLogout
-          clientId={process.env.REACT_APP_GOOGLE_API_KEY}
-          buttonText="Logout"
-          render={(renderProps) => (
-            <NavLink
-              to="/login"
-              onClick={logout}
-              disabled={renderProps.disabled}
-              className="nav-link logoutlink"
-            >
-              {" "}
-              Logout{" "}
-            </NavLink>
-          )}
-          onLogoutSuccess={logout}
-        ></GoogleLogout>
-      </li>
-    </ul>
-  );
+  //       <li className="nav-item">
+  //         <GoogleLogout
+  //           clientId={process.env.REACT_APP_GOOGLE_API_KEY}
+  //           buttonText="Logout"
+  //           render={(renderProps) => (
+  //             <NavLink
+  //               to="/login"
+  //               onClick={logout}
+  //               disabled={renderProps.disabled}
+  //               className="nav-link logoutlink"
+  //             >
+  //               {" "}
+  //               Logout{" "}
+  //             </NavLink>
+  //           )}
+  //           onLogoutSuccess={logout}
+  //         ></GoogleLogout>
+  //       </li>
+  //     </ul>
+  //   );
 
   return (
     <div>
       <div style={{ display: drawer ? "" : "none" }}>{ToolBar}</div>
       <div
-        className="fixed-top"
+        className="fixed-top drawer-box"
         style={{
           display: !drawer ? "" : "none",
           backdropFilter: "blur(2px)",
