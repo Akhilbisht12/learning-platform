@@ -19,9 +19,10 @@ import Stripe from "./Pages/payment/StripeContainer";
 import Chat from "./Pages/Chat/Chat";
 import SignupBSP from "./Pages/Auth/Forms/Signup/SignupBSP";
 import SignUpwithPhone from "./Pages/Auth/Forms/Signup/SignUpwithPhone";
-import LoginPhone from "./Pages/Auth/Forms/Login/LoginPhone";
+import NewLogin from "./Pages/Auth/Forms/Login/NewLogin";
 import Swot from "./Pages/forms/Swot";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import NewSignup from "./Pages/Auth/Forms/Signup/NewSignup";
 import FormPage from "./Pages/forms/FormPage";
 import Influencer from "./Pages/forms/Influencer";
 class App extends Component {
@@ -31,12 +32,12 @@ class App extends Component {
         <Switch>
           <Route path="/signupOtp" component={SignUpwithPhone} />
           {/* <Route path="/signup" exact component={Signup} /> */}
-          <Route path="/login" component={LoginPhone} />
+          <Route path="/login" component={NewLogin} />
           <Route path="/signup/otp" component={Otp} />
           <Route path="/forgotpasswordemail" component={EmailVerify} />
           <Route path="/ForgotPasswordotp" component={ForgotPasswordotp} />
           <Route path="/ResetPassword" component={ResetPassword} />
-          <Route path="/signup" component={SignupBSP} />
+          <Route path="/signup" component={NewSignup} />
           <Route path="/forms" component={FormPage} />
 
           <Route path="/dashboard" exact component={Dashboard} />

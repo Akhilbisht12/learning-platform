@@ -116,7 +116,6 @@ class Otp extends Component {
     formData.token = this.state.Signup_token;
     formData.email = this.state.email;
     formData.phone = localStorage.getItem("phone");
-    console.log(formData.phone);
 
     AuthService.otpResend(formData)
       .then((response) => {
