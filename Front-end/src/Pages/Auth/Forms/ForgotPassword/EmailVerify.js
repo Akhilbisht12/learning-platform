@@ -13,7 +13,7 @@ class EmailVerify extends Component {
   state = {
     Form: {
       phone: {
-        placeholder: "Phoen",
+        placeholder: "Phone Number",
         value: "",
         valid: false,
         type: "number",

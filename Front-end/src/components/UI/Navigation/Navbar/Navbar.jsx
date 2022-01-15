@@ -101,18 +101,24 @@ const Navbar = () => {
               <span> Your Forms</span>
             </li>
           </Link>
-          <li className="nav__items">
-            <FaAward size={25} color="black" />
-            <span> Your Badges</span>
-          </li>
-          <li className="nav__items">
-            <FaBullhorn size={25} color="black" />
-            <span> Meeting Updates</span>
-          </li>
-          <li className="nav__items">
-            <FaPaperPlane size={25} color="black" />
-            <span> Why RSP?</span>
-          </li>
+          <Link to="/badges">
+            <li className="nav__items">
+              <FaAward size={25} color="black" />
+              <span> Your Badges</span>
+            </li>
+          </Link>
+          <Link to="/meetings">
+            <li className="nav__items">
+              <FaBullhorn size={25} color="black" />
+              <span> Meeting Updates</span>
+            </li>
+          </Link>
+          <Link to="/whyrsp">
+            <li className="nav__items">
+              <FaPaperPlane size={25} color="black" />
+              <span> Why RSP?</span>
+            </li>
+          </Link>
           <li className="nav__items" onClick={logout}>
             <FaSignOutAlt size={25} color="black" />
             <span> Sign Out</span>
