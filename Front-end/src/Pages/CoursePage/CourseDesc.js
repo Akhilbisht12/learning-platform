@@ -79,7 +79,7 @@ class CourseDesc extends Component {
       <div className="">
         <p className="Course-title-main">{this.props.title}</p>
 
-        <div className="Course-Rating-section">
+        {/* <div className="Course-Rating-section">
           <p>{this.props.rating}</p>
           <div className="RatingStars">
             <Rating
@@ -94,23 +94,23 @@ class CourseDesc extends Component {
             {" "}
             ( {this.props.ratingtimesUpdated} ratings )
           </p>
-        </div>
+        </div> */}
 
-        <div className="break1"></div>
+        {/* <div className="break1"></div> */}
 
         <div className="Short-Description">
           <p>{this.props.short_description}</p>
         </div>
 
-        <div className="break2"></div>
+        {/* <div className="break2"></div> */}
 
-        <div className="Course-Teacher-bookmark">
+        {/* <div className="Course-Teacher-bookmark">
           <div className="Course-teacher-name">
             <p>Created at {this.props.createdat}</p>
             <h2>By {this.props.teacher}</h2>
-            {/* <Link to={`/chat/?room=${this.state.CourseId}&CourseName=${this.props.title}&UserName=${localStorage.getItem('userName')}&userId=${localStorage.getItem('userId')}`}>
+            <Link to={`/chat/?room=${this.state.CourseId}&CourseName=${this.props.title}&UserName=${localStorage.getItem('userName')}&userId=${localStorage.getItem('userId')}`}>
                         <h4 className="Course_live_classes">Join Live discussion</h4>
-                    </Link> */}
+                    </Link>
           </div>
 
           <div className="flex-row">
@@ -128,7 +128,7 @@ class CourseDesc extends Component {
               <p>BookMark</p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

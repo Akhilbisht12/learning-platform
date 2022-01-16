@@ -86,19 +86,16 @@ class Homepage extends Component {
 
         return (
           <NavLink
-            className="productLink"
             key={item._id}
             exact
             to={`/course/${this.state.CourseLink}/${item._id}`}
           >
             <CourseCards
+              course_num={item}
               key={item._id}
               title={item.title}
-              teacher={item.name}
-              img={Url + item.imageurl}
-              rating={parseInt(rating)}
-              price={item.price}
-              ratingtimesUpdated={item.rating.timesUpdated}
+              img={item.imageurl}
+              short_desc={item.discription}
             />
           </NavLink>
         );
@@ -109,37 +106,7 @@ class Homepage extends Component {
 
     return (
       <Layout>
-        <div className="container">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <NavLink to="/home">Home</NavLink>
-              </li>
-
-              <li className="breadcrumb-item">
-                <NavLink
-                  to={`/Home/${this.state.CourseLink}`}
-                  activeStyle={{ textDecoration: "underline" }}
-                >
-                  {this.state.CourseLink}
-                </NavLink>
-              </li>
-            </ol>
-          </nav>
-
-          <HomeBanner img={BannerImage} />
-
-          <div className="mt-3 Course-Content">
-            <Categories />
-            <div className="Course-Content-col">
-              <CourseTitle welcomeMessage={"Welcome"} />
-
-              <div className="Course-Content-wrap">{data}</div>
-
-              <Recommendation />
-            </div>
-          </div>
-        </div>
+        <div>{data}</div>
         <BottomTabs />
       </Layout>
     );
