@@ -235,30 +235,16 @@ class CoursePage extends Component {
       <Layout>
         <div className="coursePage">
           <div className="container">
-            <nav aria-label="breadcrumb">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                  <NavLink to="/home">Home</NavLink>
-                </li>
-
-                <li className="breadcrumb-item">
-                  <NavLink to={`/Home/${this.state.CourseType}`}>
-                    {this.state.CourseType}
-                  </NavLink>
-                </li>
-
-                <li className="breadcrumb-item">
-                  <NavLink
-                    to={`/course/${this.state.CourseType}/${this.state.CourseId}`}
-                    activeStyle={{ textDecoration: "underline" }}
-                  >
-                    {title}
-                  </NavLink>
-                </li>
-              </ol>
-            </nav>
-
             <div className="Main-Section">
+              <div className="Course-Video">
+                <CourseVideo
+                  playing={this.state.playing}
+                  videoUrl={CurrentVideo}
+                  index={this.state.index}
+                  videoCompleted={this.videoCompleted}
+                  videoDuration={this.videoDuration}
+                />
+              </div>
               <div className="Description-main">
                 <CourseDesc
                   title={title}
@@ -272,27 +258,17 @@ class CoursePage extends Component {
                   bookmark={bookmark}
                 />
               </div>
-
-              <div className="Course-Video">
-                <CourseVideo
-                  playing={this.state.playing}
-                  videoUrl={CurrentVideo}
-                  index={this.state.index}
-                  videoCompleted={this.videoCompleted}
-                  videoDuration={this.videoDuration}
-                />
-              </div>
             </div>
 
             <div className="Breakpoint"></div>
 
             <div className="Section2">
-              <div className="section2part1">
-                <div className="Small-nav-section">
+              {/* <div className="section2part1">
+               <div className="Small-nav-section">
                   <p>About</p>
-                  {/* <p>Instructor</p>
-                            <p>About</p> */}
-                </div>
+                  <p>Instructor</p>
+                            <p>About</p>
+                </div> 
 
                 <div className="flex-col-requirement">
                   <h1>Requirement of this Course</h1>
@@ -308,13 +284,13 @@ class CoursePage extends Component {
                   <h1>What will you learn from this course?</h1>
                   <p>{willLearn}</p>
                 </div>
-              </div>
+              </div> */}
 
               <div style={{ marginBottom: "100px" }} className="flex-center">
                 {VideoUrl}
                 <div className="progressBar">{progressbar}</div>
 
-                <div className="progressBar">
+                {/* <div className="progressBar">
                   <p className="Rating_coursePage">
                     Rate the course here please
                   </p>
@@ -325,7 +301,7 @@ class CoursePage extends Component {
                     specialrating={true}
                     CourseId={this.state.CourseId}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
