@@ -67,7 +67,15 @@ const Navbar = () => {
 
   const userName = localStorage.getItem("userName");
   const userEmail = localStorage.getItem("email");
-  console.log(`User: ${userName} and ${userEmail}`);
+  const userPhone = localStorage.getItem("phone");
+  let loginMethod = null;
+  if (userEmail === undefined) {
+    loginMethod = userEmail;
+  } else {
+    loginMethod = userPhone;
+  }
+
+  console.log(`User: ${userName} and ${loginMethod}`);
 
   const Drawer = (
     <div className="main__drawer-wrapper">
@@ -75,7 +83,7 @@ const Navbar = () => {
         <div className="details">
           <img className="user__img" src={avatar} alt="" />
           <p className="user__name">{userName}</p>
-          <p className="user__email">{userEmail}</p>
+          <p className="user__email">{loginMethod}</p>
         </div>
         <div className="close">
           <FaWindowClose onClick={closeDrawer} size={25} color="white" />
