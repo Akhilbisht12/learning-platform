@@ -6,6 +6,7 @@ import BottomTabs from "../../components/Layout/BottomTabs";
 import "./Forms.css";
 
 const Influencer = () => {
+  const [toastShow, setToastShow] = useState(false);
   const [formdata, setformdata] = useState({
     name: "",
     phone: "",
@@ -19,8 +20,18 @@ const Influencer = () => {
     const user = localStorage.getItem("userId");
     console.log(user);
     AuthServices.InfluencerForm(formdata, user);
-    alert("Form Submitted Successfully");
-    setformdata("");
+    setformdata({
+      name: "",
+      phone: "",
+      occupation: "",
+      district: "",
+      mandal: "",
+      village: "",
+    });
+    setToastShow(true);
+    setTimeout(() => {
+      setToastShow(false);
+    }, 2000);
   };
 
   return (
@@ -30,8 +41,8 @@ const Influencer = () => {
           display: "flex",
           flexDirection: "column",
           padding: "1rem",
+          height: "auto",
           alignItems: "center",
-          flex: 1,
           background: "#15181fc",
         }}
       >
@@ -95,8 +106,14 @@ const Influencer = () => {
             }
           />
         </div>
-
-        <button className="formBtn" onClick={handleinfluencersubmit}>
+        {toastShow == true && (
+          <span className="badge badge-success">Success</span>
+        )}
+        <button
+          className="formBtn"
+          style={{ marginBottom: "4rem" }}
+          onClick={handleinfluencersubmit}
+        >
           Submit
         </button>
       </main>

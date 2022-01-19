@@ -75,8 +75,6 @@ const Navbar = () => {
     loginMethod = userPhone;
   }
 
-  console.log(`User: ${userName} and ${loginMethod}`);
-
   const Drawer = (
     <div className="main__drawer-wrapper">
       <div className="profile__details">
@@ -91,19 +89,19 @@ const Navbar = () => {
       </div>
       <div className="drawer__navigations">
         <ul className="nav__menu">
-          <Link to="/dashboard">
+          <Link style={{ textDecoration: "none" }} to="/dashboard">
             <li className="nav__items">
               <FaDesktop size={25} color="black" />
               <span> Your Dashboard</span>
             </li>
           </Link>
-          <Link to="/home/all">
+          <Link style={{ textDecoration: "none" }} to="/home/all">
             <li className="nav__items">
               <FaClipboardList size={25} color="black" />
               <span> Modules</span>
             </li>
           </Link>
-          <Link to="/forms">
+          <Link style={{ textDecoration: "none" }} to="/forms">
             <li className="nav__items">
               <FaBookOpen size={25} color="black" />
               <span> Your Forms</span>
