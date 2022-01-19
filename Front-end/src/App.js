@@ -25,6 +25,9 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import NewSignup from "./Pages/Auth/Forms/Signup/NewSignup";
 import FormPage from "./Pages/forms/FormPage";
 import Influencer from "./Pages/forms/Influencer";
+import meetings from "./Pages/meetings/meetings";
+import whyRSP from "./Pages/whyRSP/whyRSP";
+import Badges from "./Pages/Badges/Badges";
 class App extends Component {
   render() {
     return (
@@ -81,6 +84,9 @@ class App extends Component {
 
           <Route path="/TeacherHome" component={TeacherHomePage} />
           <Route path="/TeacherEdit" component={TeacherEdit} />
+          <Route path="/meetings" component={meetings} />
+          <Route path="/whyrsp" component={whyRSP} />
+          <Route path="/badges" component={Badges} />
 
           {/* chat room for teacher and student */}
 

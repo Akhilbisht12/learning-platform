@@ -28,10 +28,10 @@ const NewSignup = () => {
   });
   const [step, setstep] = useState(1);
   const [error, seterror] = useState({
-      alertMsg: '',
-      alertType : '',
-      value : false
-  })
+    alertMsg: "",
+    alertType: "",
+    value: false,
+  });
 
   const handleformone = (e) => {
     e.preventDefault();
@@ -71,10 +71,10 @@ const NewSignup = () => {
         setLoading(false);
         console.log(error.response);
         seterror({
-            value : true,
-            alertType : 'danger',
-            alertMsg : error.response.data.message[0].msg
-        })
+          value: true,
+          alertType: "danger",
+          alertMsg: error.response.data.message[0].msg,
+        });
       });
   };
 
@@ -163,7 +163,7 @@ const NewSignup = () => {
             }
             className="form-control w-75 my-3"
           />
-          <input
+          {/* <input
             placeholder="Gender"
             type="text"
             value={loginInfo.gender}
@@ -172,7 +172,21 @@ const NewSignup = () => {
               setloginInfo({ ...loginInfo, gender: e.target.value })
             }
             className="form-control w-75 my-3"
-          />
+          /> */}
+          <select
+            required
+            className="form-select py-2 w-75 my-3"
+            value={loginInfo.gender}
+            onChange={(e) =>{
+              console.log(loginInfo.gender)
+              setloginInfo({ ...loginInfo, gender: e.target.value })
+            }}
+          >
+            <option value="">select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
           <input
             placeholder="Residence"
             type="text"
@@ -297,8 +311,8 @@ const NewSignup = () => {
         </form>
 
         <p className="my-4 text-white">
-            Already have an account? <Link to="/login">Login</Link>
-          </p>
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
       </div>
     </Layout>
   );

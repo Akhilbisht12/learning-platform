@@ -114,19 +114,41 @@ class AuthServices {
   }
 
   SwotForm(formdata, user) {
-    return axios.post("/swot", {formdata, user}, {
-      headers: {
-        Authorization:
-          "Bearer" +
-          localStorage.getItem("user") +
-          " " +
-          localStorage.getItem("ref_token"),
-      },
-    });
+    return axios.post(
+      "/swot",
+      { formdata, user },
+      {
+        headers: {
+          Authorization:
+            "Bearer" +
+            localStorage.getItem("user") +
+            " " +
+            localStorage.getItem("ref_token"),
+        },
+      }
+    );
   }
 
   InfluencerForm(formdata, user) {
-    return axios.post("/influencer", {formdata, user}, {
+    return axios.post(
+      "/influencer",
+      { formdata, user },
+      {
+        headers: {
+          Authorization:
+            "Bearer" +
+            localStorage.getItem("user") +
+            " " +
+            localStorage.getItem("ref_token"),
+        },
+      }
+    );
+  }
+
+  // get course count
+  GetCourseCount(user) {
+    console.log(user)
+    return axios.post("/getCourseCount", {user}, {
       headers: {
         Authorization:
           "Bearer" +
