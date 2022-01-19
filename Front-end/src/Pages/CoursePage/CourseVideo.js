@@ -32,7 +32,6 @@ class CourseVideo extends Component {
       <div className="player-wrapper">
         <ReactPlayer
           className="react-player"
-          height="30%"
           width="100%"
           controls={true}
           onProgress={this.HandleProgress}

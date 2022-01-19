@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import "./CSS/CoursePage.css";
 import { NavLink, Redirect } from "react-router-dom";
 import CourseDesc from "./CourseDesc";
@@ -56,14 +56,14 @@ class CoursePage extends Component {
         });
 
         let count = 0;
-
         for (let j in response.data.course.videoContent) {
           for (let i in response.data.course.videoContent[j].usersWatched) {
             if (
               localStorage.getItem("userId") ===
               response.data.course.videoContent[j].usersWatched[i]
             ) {
-              this.setState({ ["video" + j + "Completed"]: true });
+              console.log(response.data.course.videoContent[j].files[j].url);
+              this.setState({ ["Lesson" + j + "Completed"]: true });
               count += 1;
               break;
             }
@@ -80,7 +80,7 @@ class CoursePage extends Component {
   }
 
   VideochangeHandler = (event, video, index, playing) => {
-    let VideoNumber = "video" + index;
+    let VideoNumber = "Lesson" + index;
     this.setState({ CurrentVideo: video });
     this.setState({ index: index });
 
@@ -88,7 +88,7 @@ class CoursePage extends Component {
       if (i === index) {
         this.setState({ [VideoNumber]: true });
       } else {
-        this.setState({ ["video" + i]: false });
+        this.setState({ ["Lesson" + i]: false });
       }
     }
 
@@ -177,7 +177,7 @@ class CoursePage extends Component {
       if (rating === 0) rating = 1;
 
       VideoUrl = videourl.map((video, index) => {
-        let VideoNumber = "video" + index;
+        let VideoNumber = "Video" + index;
         if (this.state[VideoNumber]) {
           playButton = "VideoSelected";
           playingVideo = true;
@@ -201,7 +201,7 @@ class CoursePage extends Component {
             }
             playButton={playButton}
             completed={completed}
-            title={"Video " + index}
+            title={"Lesson " + index}
             Duration={this.state["video" + index + "Duration"]}
           />
         );
@@ -224,7 +224,7 @@ class CoursePage extends Component {
         <>
           <p>
             You have Completed <b>{this.state.progress.toPrecision(2)}% </b> of
-            your course!
+            your module!
           </p>
           <ProgressBar variant="success" now={this.state.progress} />
         </>

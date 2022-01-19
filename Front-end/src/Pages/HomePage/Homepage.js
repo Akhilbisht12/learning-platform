@@ -87,6 +87,7 @@ class Homepage extends Component {
         return (
           <NavLink
             key={item._id}
+            style={{ textDecoration: "none" }}
             exact
             to={`/course/${this.state.CourseLink}/${item._id}`}
           >
@@ -106,7 +107,7 @@ class Homepage extends Component {
 
     return (
       <Layout>
-        <div>{data}</div>
+        <div style={{ paddingBottom: "4rem" }}>{data}</div>
         <BottomTabs />
       </Layout>
     );

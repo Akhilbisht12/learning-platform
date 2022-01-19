@@ -6,6 +6,7 @@ import BottomTabs from "../../components/Layout/BottomTabs";
 import "./Forms.css";
 
 const Swot = () => {
+  const [toastShow, setToastShow] = useState(false);
   const [formdata, setformdata] = useState({
     village: "",
     strengths: "",
@@ -16,8 +17,18 @@ const Swot = () => {
 
   const handleswotsubmit = () => {
     const user = localStorage.getItem("userId");
-    console.log(user);
     AuthServices.SwotForm(formdata, user);
+    setformdata({
+      village: "",
+      strengths: "",
+      weaknesses: "",
+      opportunities: "",
+      threats: "",
+    });
+    setToastShow(true);
+    setTimeout(() => {
+      setToastShow(false);
+    }, 2000);
   };
   const formElementsArray = [];
 
@@ -29,7 +40,7 @@ const Swot = () => {
           flexDirection: "column",
           padding: "1rem",
           alignItems: "center",
-          flex: 1,
+          height: "auto",
           background: "#15181fc",
         }}
       >
@@ -85,8 +96,14 @@ const Swot = () => {
             }
           />
         </div>
-
-        <button className="formBtn" onClick={handleswotsubmit}>
+        {toastShow == true && (
+          <span className="badge badge-success">Success</span>
+        )}
+        <button
+          className="formBtn"
+          style={{ marginBottom: "5rem" }}
+          onClick={handleswotsubmit}
+        >
           Submit
         </button>
       </main>
