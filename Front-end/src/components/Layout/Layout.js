@@ -8,8 +8,10 @@ const Layout = (props) => {
   if (
     locationPage.pathname === "/login" ||
     locationPage.pathname === "/signup" ||
-    locationPage.pathname === "/signup/otp"||
-    locationPage.pathname === "/forgotpasswordemail"
+    locationPage.pathname === "/signup/otp" ||
+    locationPage.pathname === "/forgotpasswordemail" ||
+    locationPage.pathname === "/ResetPassword" ||
+    locationPage.pathname === "/ForgotPasswordotp"
   ) {
     return (
       <div>

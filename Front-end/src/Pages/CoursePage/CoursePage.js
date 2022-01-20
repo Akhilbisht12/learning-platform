@@ -10,6 +10,7 @@ import parse from "html-react-parser";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import AuthServices from "../../ApiServices/auth.service";
 import Rating from "./Rating";
+import BottomTabs from "../../components/Layout/BottomTabs";
 
 class CoursePage extends Component {
   state = {
@@ -308,6 +309,7 @@ class CoursePage extends Component {
             </div>
           </div>
         </div>
+        <BottomTabs />
       </Layout>
     );
   }

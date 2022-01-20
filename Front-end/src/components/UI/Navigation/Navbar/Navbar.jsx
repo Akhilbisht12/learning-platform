@@ -35,6 +35,14 @@ const Navbar = () => {
     screenName = "SWOT Analysis";
   } else if (locationPage.pathname == "/influencer") {
     screenName = "Neutral Influencer";
+  } else if (locationPage.pathname == "/badges") {
+    screenName = "Your Badges";
+  } else if (locationPage.pathname == "/whyrsp") {
+    screenName = "Why RSP";
+  } else if (locationPage.pathname == "/meetings") {
+    screenName = "Meeting Updates";
+  } else if (locationPage.pathname == "/course") {
+    screenName = "Module";
   }
 
   const handleMenu = () => {

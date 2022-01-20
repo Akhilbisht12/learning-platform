@@ -87,11 +87,6 @@ class App extends Component {
           <Route path="/meetings" component={meetings} />
           <Route path="/whyrsp" component={whyRSP} />
           <Route path="/badges" component={Badges} />
-
-          {/* chat room for teacher and student */}
-
-          <Route path="/chat" component={Chat} />
-          {/* <Redirect to="/signupOtp" /> */}
           {localStorage.getItem("user") ? (
             <Redirect to="/dashboard" />
           ) : (
