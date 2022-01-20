@@ -288,8 +288,10 @@ class CoursePage extends Component {
 
               <div style={{ marginBottom: "100px" }} className="flex-center">
                 {VideoUrl}
+                <div className="d-flex my-2 flex-column align-items-center">
+                  {/* <div className="bg-primary py-1 px-4">Quiz</div> */}
+                </div>
                 <div className="progressBar">{progressbar}</div>
-
                 {/* <div className="progressBar">
                   <p className="Rating_coursePage">
                     Rate the course here please

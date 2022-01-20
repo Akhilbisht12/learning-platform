@@ -21,7 +21,7 @@ const NewLogin = () => {
     setLoading(true);
     e.preventDefault();
     const regex = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
-    const res = regex.test(loginInfo.identity);
+    const res = regex.test(loginInfo.identity.toLowerCase());
     console.log(res);
     const formData = {};
     for (const [key, value] of Object.entries(loginInfo)) {
@@ -31,7 +31,7 @@ const NewLogin = () => {
     res
       ? localStorage.setItem("email", loginInfo.identity)
       : localStorage.setItem("phone", loginInfo.identity);
-
+    alert(formData.type);
     authService
       .login(formData)
       .then((response) => {
@@ -82,7 +82,10 @@ const NewLogin = () => {
             required
             value={loginInfo.identity}
             onChange={(e) =>
-              setloginInfo({ ...loginInfo, identity: e.target.value })
+              setloginInfo({
+                ...loginInfo,
+                identity: e.target.value.toLowerCase(),
+              })
             }
             className="form-control w-75 my-3"
           />
@@ -99,7 +102,10 @@ const NewLogin = () => {
           <Link className="my-2" to="/forgotpasswordemail">
             <p className="forgot-password"> Forgot Password?</p>
           </Link>
-          <Link className="my-4" to="/signup"> New User? Sign up</Link>
+          <Link className="my-4" to="/signup">
+            {" "}
+            New User? Sign up
+          </Link>
 
           <input
             disabled={Loading}
