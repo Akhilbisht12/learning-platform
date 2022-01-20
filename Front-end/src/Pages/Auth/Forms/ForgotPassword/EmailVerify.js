@@ -12,17 +12,17 @@ import Alert from "../alert";
 class EmailVerify extends Component {
   state = {
     Form: {
-      phone: {
-        placeholder: "Phone Number",
+      email: {
+        placeholder: "Enter Your Email",
         value: "",
         valid: false,
-        type: "number",
+        type: "email",
         error: " ",
         msg: "",
 
         validation: {
           required: true,
-          // regex:/^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
+          regex:/^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
         },
         touched: false,
       },
@@ -100,11 +100,11 @@ class EmailVerify extends Component {
     }
 
     // msg errors for email
-    if (inputIdentifier === "phone" && !updatedElement.valid) {
+    if (inputIdentifier === "email" && !updatedElement.valid) {
       updatedElement.error = "check format";
       updatedElement.msg = "";
     }
-    if (inputIdentifier === "phone" && updatedElement.valid) {
+    if (inputIdentifier === "email" && updatedElement.valid) {
       updatedElement.error = "";
       updatedElement.msg = "All good!";
     }
@@ -148,8 +148,8 @@ class EmailVerify extends Component {
 
           // alert(response.data.message);
         //   localStorage.setItem("email", this.state.Form["email"].value);
-          localStorage.setItem("email", response.data.email);
-          localStorage.setItem("phone", this.state.Form["phone"].value);
+          localStorage.setItem("email", this.state.Form["email"].value);
+          // localStorage.setItem("phne", this.state.Form["phone"].value);
           //    localStorage.setItem('userId',response.data.userId);
           //    localStorage.setItem('userName',response.data.username);
           this.setState({ loading: false });

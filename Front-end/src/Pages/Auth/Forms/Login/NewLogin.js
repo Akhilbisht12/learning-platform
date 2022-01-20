@@ -21,7 +21,7 @@ const NewLogin = () => {
     setLoading(true);
     e.preventDefault();
     const regex = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
-    const res = regex.test(loginInfo.identity);
+    const res = regex.test(loginInfo.identity.toLowerCase());
     console.log(res);
     const formData = {};
     for (const [key, value] of Object.entries(loginInfo)) {
@@ -31,7 +31,7 @@ const NewLogin = () => {
     res
       ? localStorage.setItem("email", loginInfo.identity)
       : localStorage.setItem("phone", loginInfo.identity);
-
+    alert(formData.type);
     authService
       .login(formData)
       .then((response) => {
@@ -85,7 +85,10 @@ const NewLogin = () => {
             required
             value={loginInfo.identity}
             onChange={(e) =>
-              setloginInfo({ ...loginInfo, identity: e.target.value })
+              setloginInfo({
+                ...loginInfo,
+                identity: e.target.value.toLowerCase(),
+              })
             }
             style={inputStyle}
           />

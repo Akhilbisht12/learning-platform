@@ -147,16 +147,35 @@ class AuthServices {
 
   // get course count
   GetCourseCount(user) {
-    console.log(user)
-    return axios.post("/getCourseCount", {user}, {
-      headers: {
-        Authorization:
-          "Bearer" +
-          localStorage.getItem("user") +
-          " " +
-          localStorage.getItem("ref_token"),
-      },
-    });
+    return axios.post(
+      "/getCourseCount",
+      { user },
+      {
+        headers: {
+          Authorization:
+            "Bearer" +
+            localStorage.getItem("user") +
+            " " +
+            localStorage.getItem("ref_token"),
+        },
+      }
+    );
+  }
+
+  GetUser(userId) {
+    return axios.post(
+      "/getUser",
+      { userId },
+      {
+        headers: {
+          Authorization:
+            "Bearer" +
+            localStorage.getItem("user") +
+            " " +
+            localStorage.getItem("ref_token"),
+        },
+      }
+    );
   }
 
   UpdatedCourse(data) {
