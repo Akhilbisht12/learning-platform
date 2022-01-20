@@ -70,7 +70,10 @@ const NewLogin = () => {
         alertMsg={error.alertMsg}
         alertType={error.alertType}
       />
-      <div className="d-flex flex-column align-items-center">
+      <div
+        className="d-flex flex-column align-items-center"
+        style={{ fontFamily: "Gilroy" }}
+      >
         <img className="w-25" src={logoBhim} />
         <h3 className="text-white my-2"> BHIM BATA</h3>
         <form
@@ -84,33 +87,66 @@ const NewLogin = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, identity: e.target.value })
             }
-            className="form-control w-75 my-3"
+            style={inputStyle}
           />
           <input
             placeholder="Password"
             type="password"
+            style={inputStyle}
             required
             value={loginInfo.password}
             onChange={(e) =>
               setloginInfo({ ...loginInfo, password: e.target.value })
             }
-            className="form-control w-75 my-3"
           />
-          <Link className="my-2" to="/forgotpasswordemail">
-            <p className="forgot-password"> Forgot Password?</p>
+          <Link className="my-2 " to="/forgotpasswordemail">
+            <p className="forgot-password flex-end"> Forgot Password?</p>
           </Link>
-          <Link className="my-4" to="/signup"> New User? Sign up</Link>
-
           <input
+            style={styles}
             disabled={Loading}
             type="submit"
             value="Login"
-            className="btn bg-white my-3 px-4"
           />
         </form>
+        <p style={{ color: "white" }}>
+          New User?
+          <Link className="my-4" to="/signup">
+            <span style={{ fontWeight: "500", color: "rgb(141 103 255)" }}>
+              {" "}
+              Sign up
+            </span>
+          </Link>
+        </p>
       </div>
     </Layout>
   );
+};
+
+const styles = {
+  width: "326px",
+  textTransform: "uppercase",
+  padding: "1rem",
+  borderRadius: "7px",
+  marginTop: "15px",
+  backgroundColor: "white",
+  color: "#00005c",
+  font: "normal normal normal 16px/19px Gilroy",
+  border: "none",
+};
+const inputStyle = {
+  outline: "none",
+  display: "block",
+  width: "326px",
+  border: "solid 2px white",
+  background: "#0005ac 0% 0% no-repeat padding-box",
+  font: "normal normal normal 15px/12px Gilroy",
+  letterSpacing: "0px",
+  color: "#707070",
+  borderRadius: "5px",
+  padding: "1rem",
+  marginBottom: "1rem",
+  boxSizing: "border-box",
 };
 
 export default NewLogin;

@@ -37,7 +37,10 @@ class VideoList extends Component {
 
             <span onClick={this.props.changed}> {this.props.title}</span>
           </div>
-          <div className="video-duration">
+          <div
+            className="video-duration"
+            style={{ display: file ? "block" : "none" }}
+          >
             <span onClick={handleFiles}>
               <i className=" fa fa-chevron-circle-down " />
             </span>
@@ -47,7 +50,7 @@ class VideoList extends Component {
           className={className.join(" ")}
           style={{
             padding: "1rem",
-            display: this.state.files ? "none" : "block",
+            display: this.state.files ? "none" : "flex",
           }}
         >
           {file

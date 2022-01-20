@@ -9,7 +9,7 @@ const NewSignup = () => {
   const history = useHistory();
   const [Loading, setLoading] = useState(false);
   const [loginInfo, setloginInfo] = useState({
-    name: "",
+    fullname: "",
     email: "",
     phone: "",
     password: "",
@@ -32,7 +32,6 @@ const NewSignup = () => {
     alertType: "",
     value: false,
   });
-
   const handleformone = (e) => {
     e.preventDefault();
     if (loginInfo.password !== loginInfo.confirmpass) {
@@ -42,6 +41,10 @@ const NewSignup = () => {
     }
   };
 
+  const handleformback = () => {
+    setstep(step - 1);
+  };
+
   const submitform = (e) => {
     setLoading(true);
     e.preventDefault();
@@ -49,7 +52,6 @@ const NewSignup = () => {
     for (const [key, value] of Object.entries(loginInfo)) {
       formData[key] = value;
     }
-    console.log(formData);
     authService
       .register(formData)
       .then((response) => {
@@ -77,7 +79,7 @@ const NewSignup = () => {
         });
       });
   };
-
+  console.log(step);
   return (
     <Layout>
       <Alert
@@ -85,7 +87,10 @@ const NewSignup = () => {
         alertMsg={error.alertMsg}
         alertType={error.alertType}
       />
-      <div className="d-flex flex-column align-items-center">
+      <div
+        className="d-flex flex-column align-items-center"
+        style={{ fontFamily: "Gilroy" }}
+      >
         <img className="w-25" src={logoBhim} />
         <p className="text-white my-2"> BHIM BATA APP USER REGISTRATION</p>
         {/* step 1 form */}
@@ -96,15 +101,16 @@ const NewSignup = () => {
           } flex-column justify-content-center align-items-center`}
         >
           <input
+            style={inputStyle}
             placeholder="Full Name"
             value={loginInfo.name}
             required
-            onChange={(e) =>
-              setloginInfo({ ...loginInfo, name: e.target.value })
-            }
-            className="form-control w-75 my-3"
+            onChange={(e) => {
+              setloginInfo({ ...loginInfo, fullname: e.target.value });
+            }}
           />
           <input
+            style={inputStyle}
             placeholder="Email"
             type="email"
             required
@@ -112,9 +118,9 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, email: e.target.value })
             }
-            className="form-control w-75 my-3"
           />
           <input
+            style={inputStyle}
             placeholder="Phone"
             type="number"
             required
@@ -122,17 +128,17 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, phone: e.target.value })
             }
-            className="form-control w-75 my-3"
           />
           <input
             placeholder="Password"
             type="password"
+            autoComplete="new-password"
             required
             value={loginInfo.password}
             onChange={(e) =>
               setloginInfo({ ...loginInfo, password: e.target.value })
             }
-            className="form-control w-75 my-3"
+            style={inputStyle}
           />
           <input
             placeholder="Confirm Password"
@@ -142,11 +148,11 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, confirmpass: e.target.value })
             }
-            className="form-control w-75 my-3"
+            style={inputStyle}
           />
-          <input type="submit" value="Next" className="btn bg-white" />
+          <input type="submit" value="Next" style={styles} />
         </form>
-        {/* step 2 form */}
+        {/* Second Form */}
         <form
           onSubmit={handleformone}
           className={`w-100 ${
@@ -161,7 +167,7 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, age: e.target.value })
             }
-            className="form-control w-75 my-3"
+            style={inputStyle}
           />
           {/* <input
             placeholder="Gender"
@@ -175,14 +181,14 @@ const NewSignup = () => {
           /> */}
           <select
             required
-            className="form-select py-2 w-75 my-3"
+            style={inputStyle}
             value={loginInfo.gender}
-            onChange={(e) =>{
-              console.log(loginInfo.gender)
-              setloginInfo({ ...loginInfo, gender: e.target.value })
+            onChange={(e) => {
+              console.log(loginInfo.gender);
+              setloginInfo({ ...loginInfo, gender: e.target.value });
             }}
           >
-            <option value="">select gender</option>
+            <option value="">Select Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
@@ -195,9 +201,10 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, residence: e.target.value })
             }
-            className="form-control w-75 my-3"
+            style={inputStyle}
           />
           <input
+            style={inputStyle}
             placeholder="Community"
             type="text"
             required
@@ -205,9 +212,9 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, community: e.target.value })
             }
-            className="form-control w-75 my-3"
           />
           <input
+            style={inputStyle}
             placeholder="Education"
             type="text"
             required
@@ -215,9 +222,9 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, education: e.target.value })
             }
-            className="form-control w-75 my-3"
           />
           <input
+            style={inputStyle}
             placeholder="Occupation"
             type="text"
             required
@@ -225,19 +232,16 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, occupation: e.target.value })
             }
-            className="form-control w-75 my-3"
           />
           <div className="d-flex justify-content-center align-items-center">
-            <button
-              onClick={() => setstep(step - 1)}
-              className="btn bg-info mx-2"
-            >
-              Prev
+            <button onClick={handleformback} style={prevBtn}>
+              Back
             </button>
-            <input type="submit" value="Next" className="btn bg-white mx-2" />
+            <input type="submit" value="Next" style={prevBtn} />
           </div>
         </form>
-        {/* form 3 */}
+
+        {/* Third Form */}
         <form
           onSubmit={submitform}
           className={`w-100 ${
@@ -252,7 +256,7 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, district: e.target.value })
             }
-            className="form-control w-75 my-3"
+            style={inputStyle}
           />
           <input
             placeholder="Mandal"
@@ -262,7 +266,7 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, mandal: e.target.value })
             }
-            className="form-control w-75 my-3"
+            style={inputStyle}
           />
           <input
             placeholder="Village"
@@ -272,7 +276,7 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, village: e.target.value })
             }
-            className="form-control w-75 my-3"
+            style={inputStyle}
           />
           <input
             placeholder="Parliamentary Constituency"
@@ -282,7 +286,7 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, pconst: e.target.value })
             }
-            className="form-control w-75 my-3"
+            style={inputStyle}
           />
           <input
             placeholder="Assembly Constituency"
@@ -292,22 +296,19 @@ const NewSignup = () => {
             onChange={(e) =>
               setloginInfo({ ...loginInfo, aconst: e.target.value })
             }
-            className="form-control w-75 my-3"
+            style={inputStyle}
           />
           <div className="d-flex justify-content-center align-items-center">
-            <button
-              onClick={() => setstep(step - 1)}
-              className="btn bg-info mx-2"
-            >
-              Prev
+            <button onClick={handleformback} style={prevBtn}>
+              Back
             </button>
-            <input
-              disabled={Loading}
-              type="submit"
-              value="Create Account"
-              className="btn bg-white mx-2"
-            />
           </div>
+          <input
+            disabled={Loading}
+            type="submit"
+            value="Create Account"
+            style={styles}
+          />
         </form>
 
         <p className="my-4 text-white">
@@ -316,6 +317,44 @@ const NewSignup = () => {
       </div>
     </Layout>
   );
+};
+const styles = {
+  width: "326px",
+  textTransform: "uppercase",
+  padding: "1rem",
+  borderRadius: "7px",
+  marginTop: "15px",
+  backgroundColor: "white",
+  color: "#00005c",
+  font: "normal normal normal 16px/19px Gilroy",
+  border: "none",
+};
+const inputStyle = {
+  outline: "none",
+  display: "block",
+  width: "326px",
+  border: "solid 2px white",
+  background: "#0005ac 0% 0% no-repeat padding-box",
+  font: "normal normal normal 15px/12px Gilroy",
+  letterSpacing: "0px",
+  color: "#f5f5f5",
+  borderRadius: "5px",
+  padding: "1rem",
+  marginBottom: "1rem",
+  boxSizing: "border-box",
+};
+
+const prevBtn = {
+  width: "160px",
+  textTransform: "uppercase",
+  padding: "1rem",
+  borderRadius: "7px",
+  marginTop: "15px",
+  marginLeft: "1rem",
+  backgroundColor: "white",
+  color: "#00005c",
+  font: "normal normal normal 16px/19px Gilroy",
+  border: "none",
 };
 
 export default NewSignup;
