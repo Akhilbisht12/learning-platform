@@ -31,7 +31,6 @@ const NewLogin = () => {
     res
       ? localStorage.setItem("email", loginInfo.identity)
       : localStorage.setItem("phone", loginInfo.identity);
-    alert(formData.type);
     authService
       .login(formData)
       .then((response) => {

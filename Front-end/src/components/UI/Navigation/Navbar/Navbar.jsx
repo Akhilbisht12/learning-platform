@@ -78,9 +78,9 @@ const Navbar = () => {
   const userPhone = localStorage.getItem("phone");
   let loginMethod = null;
   if (userEmail === undefined) {
-    loginMethod = userEmail;
-  } else {
     loginMethod = userPhone;
+  } else {
+    loginMethod = userEmail;
   }
 
   const Drawer = (
