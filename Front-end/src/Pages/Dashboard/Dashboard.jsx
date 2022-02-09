@@ -15,6 +15,7 @@ import Navbar from "../../components/UI/Navigation/Navbar/Navbar";
 import Layout from "../../components/Layout/Layout";
 import authService from "../../ApiServices/auth.service";
 import Loader from "react-loader-spinner";
+import WhyBhujan from "./WhyBhujan";
 
 ChartJS.register(
   CategoryScale,
@@ -126,6 +127,7 @@ const Dashboard = () => {
   }
   return (
     <Layout>
+      <WhyBhujan />
       <Bar height="250px" options={options} data={data} />
       {/* modulres written data */}
       <div className="my-4 pb-5">

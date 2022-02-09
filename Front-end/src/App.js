@@ -25,9 +25,11 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import NewSignup from "./Pages/Auth/Forms/Signup/NewSignup";
 import FormPage from "./Pages/forms/FormPage";
 import Influencer from "./Pages/forms/Influencer";
-import meetings from "./Pages/meetings/meetings";
+import Meetings from "./Pages/meetings/Meetings";
 import whyRSP from "./Pages/whyRSP/whyRSP";
 import Badges from "./Pages/Badges/Badges";
+import OnBoarding from "./Pages/OnBoarding/OnBoarding";
+import "./App.css";
 class App extends Component {
   render() {
     return (
@@ -41,6 +43,7 @@ class App extends Component {
           <Route path="/ForgotPasswordotp" component={ForgotPasswordotp} />
           <Route path="/ResetPassword" component={ResetPassword} />
           <Route path="/signup" component={NewSignup} />
+          <Route path="/onboarding" component={OnBoarding} />
           <Route path="/forms" component={FormPage} />
 
           <Route path="/dashboard" exact component={Dashboard} />
@@ -84,7 +87,7 @@ class App extends Component {
 
           <Route path="/TeacherHome" component={TeacherHomePage} />
           <Route path="/TeacherEdit" component={TeacherEdit} />
-          <Route path="/meetings" component={meetings} />
+          <Route path="/meetings" component={Meetings} />
           <Route path="/whyrsp" component={whyRSP} />
           <Route path="/badges" component={Badges} />
           {localStorage.getItem("user") ? (

@@ -29,7 +29,7 @@ const Badges = () => {
           >
             <img
               className="w-100"
-              src="https://www.gettingsmart.com/wp-content/uploads/2012/11/Guaranteed-Sign-Featured.jpg"
+              src="https://bsplearningvideos.s3.ap-south-1.amazonaws.com/medals/bronze.png"
             />
           </div>
           <div
@@ -39,7 +39,7 @@ const Badges = () => {
           >
             <img
               className="w-100"
-              src="https://www.gettingsmart.com/wp-content/uploads/2012/11/Guaranteed-Sign-Featured.jpg"
+              src="https://bsplearningvideos.s3.ap-south-1.amazonaws.com/medals/silver.png"
             />
           </div>
           <div
@@ -49,7 +49,7 @@ const Badges = () => {
           >
             <img
               className="w-100"
-              src="https://www.gettingsmart.com/wp-content/uploads/2012/11/Guaranteed-Sign-Featured.jpg"
+              src="https://bsplearningvideos.s3.ap-south-1.amazonaws.com/medals/gold.png"
             />
           </div>
           <div
@@ -59,7 +59,7 @@ const Badges = () => {
           >
             <img
               className="w-100"
-              src="https://www.gettingsmart.com/wp-content/uploads/2012/11/Guaranteed-Sign-Featured.jpg"
+              src="https://bsplearningvideos.s3.ap-south-1.amazonaws.com/medals/platinium.png"
             />
           </div>
         </div>

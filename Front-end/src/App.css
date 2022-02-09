@@ -1,0 +1,47 @@
+.bgsite {
+  background-color: #00005c;
+}
+
+.min100vh {
+  min-height: 100vh;
+}
+
+.sitebtn {
+  width: 200px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0.8rem;
+  border-radius: 25px;
+  background-color: white;
+  color: #00005c;
+  font: normal normal normal 18px/20px Gilroy;
+  border: none;
+}
+
+.sitebtnInv {
+  width: 200px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0.8rem;
+  border-radius: 25px;
+  background-color: #00005c;
+  color: white;
+  font: normal normal normal 18px/20px Gilroy;
+  border: none;
+}
+
+.siteInput {
+  outline: "none";
+  display: "block";
+  width: "326px";
+  border: "solid 2px white";
+  background: "#ffffff 0% 0% no-repeat padding-box";
+  font: "normal normal normal 18px/15px Gilroy";
+  letter-spacing: "0px";
+  color: "#707070";
+  border-radius: "25px";
+  text-align: "center";
+  padding: "1rem";
+  margin-top: "1rem";
+  box-sizing: "border-box";
+}

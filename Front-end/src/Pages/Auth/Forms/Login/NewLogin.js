@@ -43,6 +43,7 @@ const NewLogin = () => {
           alertMsg: "logged in successfully",
         });
         localStorage.setItem("user", response.data.access_token);
+        localStorage.setItem("profile", response.data.profile);
         localStorage.setItem("ref_token", response.data.referesh_token);
         localStorage.setItem("userId", response.data.userId);
         localStorage.setItem("userName", response.data.username);
@@ -63,21 +64,21 @@ const NewLogin = () => {
   };
 
   return (
-    <Layout>
+    <Layout className="">
       <Alert
         value={error.value}
         alertMsg={error.alertMsg}
         alertType={error.alertType}
       />
       <div
-        className="d-flex flex-column align-items-center"
+        className="d-flex flex-column align-items-center justify-content-around"
         style={{ fontFamily: "Gilroy" }}
       >
-        <img className="w-25" src={logoBhim} />
-        <h3 className="text-white my-2"> BHIM BATA</h3>
+        <img className="w-25 my-2" src={logoBhim} />
+        <h3 className="text-white my-3"> BHIM BATA</h3>
         <form
           onSubmit={submitLogin}
-          className="w-100 d-flex flex-column justify-content-center align-items-center my-5"
+          className="w-100 d-flex flex-column justify-content-center align-items-center"
         >
           <input
             placeholder="Email or Phone"
@@ -101,7 +102,7 @@ const NewLogin = () => {
               setloginInfo({ ...loginInfo, password: e.target.value })
             }
           />
-          <Link className="my-2 " to="/forgotpasswordemail">
+          <Link className="my-1" to="/forgotpasswordemail">
             <p className="forgot-password flex-end"> Forgot Password?</p>
           </Link>
           <input
@@ -111,29 +112,25 @@ const NewLogin = () => {
             value="Login"
           />
         </form>
-        <p style={{ color: "white" }}>
-          New User?
-          <Link className="my-4" to="/signup">
-            <span style={{ fontWeight: "500", color: "rgb(141 103 255)" }}>
-              {" "}
-              Sign up
-            </span>
+        <div className="mt-5 d-flex flex-column align-items-center justify-content-center">
+          <p className="text-white m-0">NEW USER</p>
+          <Link className="text-center fw-bold" style={styles} to="/onboarding">
+            REGISTER HERE
           </Link>
-        </p>
+        </div>
       </div>
     </Layout>
   );
 };
 
 const styles = {
-  width: "326px",
+  width: "200px",
   textTransform: "uppercase",
-  padding: "1rem",
-  borderRadius: "7px",
-  marginTop: "15px",
+  padding: "0.8rem",
+  borderRadius: "25px",
   backgroundColor: "white",
   color: "#00005c",
-  font: "normal normal normal 16px/19px Gilroy",
+  font: "normal normal normal 18px/20px Gilroy",
   border: "none",
 };
 const inputStyle = {
@@ -141,11 +138,12 @@ const inputStyle = {
   display: "block",
   width: "326px",
   border: "solid 2px white",
-  background: "#0005ac 0% 0% no-repeat padding-box",
-  font: "normal normal normal 15px/12px Gilroy",
+  background: "#ffffff 0% 0% no-repeat padding-box",
+  font: "normal normal normal 18px/15px Gilroy",
   letterSpacing: "0px",
   color: "#707070",
-  borderRadius: "5px",
+  borderRadius: "25px",
+  textAlign: "center",
   padding: "1rem",
   marginBottom: "1rem",
   boxSizing: "border-box",

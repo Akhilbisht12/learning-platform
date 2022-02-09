@@ -27,7 +27,7 @@ exports.authentication = (req, res, next) => {
       error.statusCode = 401;
       throw error;
     }
-    //console.log("this is the payload of access token",payload)
+    // console.log("this is the payload of access token", payload);
     res.userID = payload["username"];
     next();
   }
@@ -68,13 +68,11 @@ exports.GetnewAccessToken = (req, res) => {
           }
         );
 
-        return res
-          .status(200)
-          .json({
-            message: "Fetched token successfully",
-            access_token: access_token,
-            refresh_token: referesh_token,
-          });
+        return res.status(200).json({
+          message: "Fetched token successfully",
+          access_token: access_token,
+          refresh_token: referesh_token,
+        });
       }
     });
   }

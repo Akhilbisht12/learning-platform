@@ -4,16 +4,19 @@ import logoBhim from "../../../../assets/Images/bhim.png";
 import { Link, useHistory } from "react-router-dom";
 import authService from "../../../../ApiServices/auth.service";
 import Alert from "../alert";
+import { districts } from "./districts";
 
 const NewSignup = () => {
   const history = useHistory();
   const [Loading, setLoading] = useState(false);
+  const [districtRef, setdistrictRef] = useState(0);
   const [loginInfo, setloginInfo] = useState({
-    fullname: "",
+    name: "",
     email: "",
     phone: "",
     password: "",
     confirmpass: "",
+    profile: "",
     age: "",
     gender: "",
     residence: "",
@@ -48,9 +51,10 @@ const NewSignup = () => {
   const submitform = (e) => {
     setLoading(true);
     e.preventDefault();
-    const formData = {};
+    let formData = new FormData();
     for (const [key, value] of Object.entries(loginInfo)) {
-      formData[key] = value;
+      formData.append(key, value);
+      console.log(key, value);
     }
     authService
       .register(formData)
@@ -60,15 +64,13 @@ const NewSignup = () => {
         localStorage.setItem("email", loginInfo.email);
         localStorage.setItem("phone", loginInfo.phone);
         localStorage.setItem("userName", loginInfo.name);
+        localStorage.setItem("profile", response.data.profile);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("valid", true);
         localStorage.setItem("type", "success");
         localStorage.setItem("msg", response.data.message);
-
         history.push("/signup/otp");
       })
-      //  alert("Something went wrong")})
-
       .catch((error) => {
         setLoading(false);
         console.log(error.response);
@@ -79,7 +81,6 @@ const NewSignup = () => {
         });
       });
   };
-  console.log(step);
   return (
     <Layout>
       <Alert
@@ -106,7 +107,7 @@ const NewSignup = () => {
             value={loginInfo.name}
             required
             onChange={(e) => {
-              setloginInfo({ ...loginInfo, fullname: e.target.value });
+              setloginInfo({ ...loginInfo, name: e.target.value });
             }}
           />
           <input
@@ -134,6 +135,7 @@ const NewSignup = () => {
             type="password"
             autoComplete="new-password"
             required
+            minLength={5}
             value={loginInfo.password}
             onChange={(e) =>
               setloginInfo({ ...loginInfo, password: e.target.value })
@@ -150,6 +152,24 @@ const NewSignup = () => {
             }
             style={inputStyle}
           />
+          <div style={inputStyle}>
+            <label htmlFor="picture" className="m-0">
+              Choose Profile Picture
+            </label>
+            <input
+              placeholder="Upload Picture"
+              required
+              id="picture"
+              style={{ visibility: "hidden" }}
+              type="file"
+              onChange={(e) =>
+                setloginInfo({ ...loginInfo, profile: e.target.files[0] })
+              }
+              required
+              accept=".jpg, .jpeg, .png"
+            />
+          </div>
+
           <input type="submit" value="Next" style={styles} />
         </form>
         {/* Second Form */}
@@ -248,7 +268,7 @@ const NewSignup = () => {
             step === 3 ? "d-flex" : "d-none"
           } flex-column justify-content-center align-items-center`}
         >
-          <input
+          {/* <input
             placeholder="District"
             type="text"
             value={loginInfo.district}
@@ -257,7 +277,25 @@ const NewSignup = () => {
               setloginInfo({ ...loginInfo, district: e.target.value })
             }
             style={inputStyle}
-          />
+          /> */}
+          <select
+            required
+            style={inputStyle}
+            onChange={(e) => {
+              {
+                setdistrictRef(e.target.value);
+                setloginInfo({
+                  ...loginInfo,
+                  district: districts[e.target.value].name,
+                });
+              }
+            }}
+          >
+            <option value="">Select District</option>
+            {districts.map((item, i) => {
+              return <option value={i}>{item.name}</option>;
+            })}
+          </select>
           <input
             placeholder="Mandal"
             type="text"
@@ -278,7 +316,22 @@ const NewSignup = () => {
             }
             style={inputStyle}
           />
-          <input
+          <select
+            required
+            style={inputStyle}
+            onChange={(e) => {
+              setloginInfo({
+                ...loginInfo,
+                pconst: districts[districtRef].cont[e.target.value],
+              });
+            }}
+          >
+            <option value="">Select Parliamentary Constituency</option>
+            {districts[districtRef].cont.map((item, i) => {
+              return <option value={i}>{item.name}</option>;
+            })}
+          </select>
+          {/* <input
             placeholder="Parliamentary Constituency"
             type="text"
             required
@@ -287,8 +340,8 @@ const NewSignup = () => {
               setloginInfo({ ...loginInfo, pconst: e.target.value })
             }
             style={inputStyle}
-          />
-          <input
+          /> */}
+          {/* <input
             placeholder="Assembly Constituency"
             type="text"
             required
@@ -297,7 +350,22 @@ const NewSignup = () => {
               setloginInfo({ ...loginInfo, aconst: e.target.value })
             }
             style={inputStyle}
-          />
+          /> */}
+          <select
+            required
+            style={inputStyle}
+            onChange={(e) => {
+              setloginInfo({
+                ...loginInfo,
+                aconst: districts[districtRef].cont[e.target.value],
+              });
+            }}
+          >
+            <option value="">Select Assembly Constituency</option>
+            {districts[districtRef].cont.map((item, i) => {
+              return <option value={i}>{item.name}</option>;
+            })}
+          </select>
           <div className="d-flex justify-content-center align-items-center">
             <button onClick={handleformback} style={prevBtn}>
               Back
@@ -334,12 +402,13 @@ const inputStyle = {
   display: "block",
   width: "326px",
   border: "solid 2px white",
-  background: "#0005ac 0% 0% no-repeat padding-box",
-  font: "normal normal normal 15px/12px Gilroy",
+  background: "#ffffff 0% 0% no-repeat padding-box",
+  font: "normal normal normal 18px/15px Gilroy",
   letterSpacing: "0px",
-  color: "#f5f5f5",
-  borderRadius: "5px",
-  padding: "1rem",
+  color: "#707070",
+  borderRadius: "25px",
+  textAlign: "center",
+  padding: "0.8rem",
   marginBottom: "1rem",
   boxSizing: "border-box",
 };

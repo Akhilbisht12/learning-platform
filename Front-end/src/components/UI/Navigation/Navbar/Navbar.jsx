@@ -7,6 +7,7 @@ import { GoogleLogout } from "react-google-login";
 import Search from "../../Search/search";
 import { GiHamburgerMenu } from "react-icons/gi";
 import avatar from "../../../../assets/Images/user.png";
+import Drawer from "./Drawer";
 import {
   FaDesktop,
   FaClipboardList,
@@ -19,6 +20,7 @@ import {
 } from "react-icons/fa";
 
 const Navbar = () => {
+  const profile = localStorage.getItem("profile");
   const [isLogin, setLogin] = React.useState(false);
   const history = useHistory();
   const [drawer, setdrawer] = useState(true);
@@ -83,11 +85,11 @@ const Navbar = () => {
     loginMethod = userEmail;
   }
 
-  const Drawer = (
+  const Drawert = (
     <div className="main__drawer-wrapper">
       <div className="profile__details">
         <div className="details">
-          <img className="user__img" src={avatar} alt="" />
+          <img className="user__img" src={profile ? profile : avatar} alt="" />
           <p className="user__name">{userName}</p>
           <p className="user__email">{loginMethod}</p>
         </div>
@@ -243,7 +245,7 @@ const Navbar = () => {
           backdropFilter: "blur(2px)",
         }}
       >
-        {Drawer}
+        <Drawer logout={logout} closeDrawer={closeDrawer} />
       </div>
     </div>
   );
