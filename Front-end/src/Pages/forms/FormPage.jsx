@@ -19,7 +19,9 @@ const FormPage = () => {
       <div className="main__from-wrapper">
         <div className="img__box"></div>
         <div
-          className={`btn__wrapper ${coursesWatched === 4 ? "d-block" : "d-none"}`}
+          className={`btn__wrapper ${
+            coursesWatched === 4 ? "d-flex" : "d-none"
+          }`}
         >
           <button className="formBtn" onClick={() => history.push("/swot")}>
             SWOT Analysis Form
@@ -33,7 +35,9 @@ const FormPage = () => {
           </button>
         </div>
         <div
-          className={`btn__wrapper ${coursesWatched < 4 ? "d-block" : "d-none"}`}
+          className={`btn__wrapper ${
+            coursesWatched < 4 ? "d-block" : "d-none"
+          }`}
         >
           <p className="text-center text-white">
             You have not completed all the modules, please complete all the
